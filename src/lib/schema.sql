@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS waitlist (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  mobile VARCHAR(20) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  city VARCHAR(50) NOT NULL,
+  role VARCHAR(50) NOT NULL,
+  submitted_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS partner_enquiries (
+  id SERIAL PRIMARY KEY,
+  full_name VARCHAR(200) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  company VARCHAR(200) NOT NULL,
+  role VARCHAR(200),
+  industry VARCHAR(50) NOT NULL,
+  message TEXT,
+  submitted_at TIMESTAMPTZ DEFAULT NOW()
+);

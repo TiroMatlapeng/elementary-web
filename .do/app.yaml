@@ -1,0 +1,21 @@
+name: elementary-web
+region: ams
+services:
+  - name: web
+    github:
+      repo: edwinmatlapeng/elementary-web
+      branch: main
+      deploy_on_push: true
+    build_command: npm run build
+    run_command: npm run start
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 3000
+    envs:
+      - key: DATABASE_URL
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: NODE_ENV
+        value: production
+        scope: RUN_AND_BUILD_TIME
