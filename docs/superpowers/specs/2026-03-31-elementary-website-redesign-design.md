@@ -40,7 +40,7 @@ Replace the current Canva-built website for Elementary Data & Software Solutions
   - Primary background: Near-black (`#0a0a0b`)
   - Secondary surfaces: Dark slate (`#141418`)
   - Light contrast sections: Off-white (`#f5f5f7`)
-  - Accent color: TBD (user choosing between warm amber `#d4a853` and teal `#2dd4bf` — toggle in mockup)
+  - Accent color: Teal (`#2dd4bf`) — tech-forward, contemporary
   - Text: White/light gray on dark sections, dark gray on light sections
 - **Typography:** Syne (display headings) + DM Sans (body text)
 - **Motion:** Smooth scroll-triggered fade-ins (IntersectionObserver), subtle hover effects, micro-interactions. No aggressive parallax.
