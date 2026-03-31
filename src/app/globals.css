@@ -72,3 +72,8 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
+
+/* Services grid card hover */
+.service-card:hover {
+  border-color: var(--color-accent) !important;
+}
