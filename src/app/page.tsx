@@ -3,6 +3,7 @@ import { DualPath } from "@/components/dual-path";
 import { ServicesGrid } from "@/components/services-grid";
 import { TrustSection } from "@/components/trust-section";
 import { TechStack } from "@/components/tech-stack";
+import { CTASection } from "@/components/cta-section";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ServicesGrid />
       <TrustSection />
       <TechStack />
+      <CTASection />
     </main>
   );
 }
