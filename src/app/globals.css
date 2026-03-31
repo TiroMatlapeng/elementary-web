@@ -77,3 +77,8 @@ body {
 .service-card:hover {
   border-color: var(--color-accent) !important;
 }
+
+/* Dickson feature card hover */
+.feature-card:hover {
+  border-color: var(--color-accent-glow) !important;
+}
