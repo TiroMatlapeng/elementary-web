@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dickson Logo Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark: #0a0a0b;
+      --surface: #141418;
+      --light: #f5f5f7;
+      --teal: #2dd4bf;
+      --amber: #d4a853;
+      --white: #ffffff;
+      --mid: #1e1e24;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #1a1a20;
+      color: var(--light);
+      padding: 48px 32px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 32px;
+      max-width: 900px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Swatch panels ── */
+    .swatch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .swatch.dark { background: var(--dark); }
+    .swatch.surface { background: var(--surface); }
+    .swatch.light { background: var(--light); }
+    .swatch.mid { background: var(--mid); }
+
+    /* ── Logo sizes ── */
+    .logo-xl  { width: 200px; height: auto; display: block; }
+    .logo-lg  { width: 120px; height: auto; display: block; }
+    .logo-md  { width: 80px;  height: auto; display: block; }
+    .logo-sm  { width: 48px;  height: auto; display: block; }
+    .logo-xs  { width: 32px;  height: auto; display: block; }
+
+    /* ── Color contexts ── */
+    .teal-icon { color: var(--teal); }
+    .white-icon { color: var(--white); }
+    .dark-icon  { color: #111114; }
+    .amber-icon { color: var(--amber); }
+
+    /* ── Wordmark combinations ── */
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .wordmark-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .wordmark-text.xl { font-size: 36px; }
+    .wordmark-text.lg { font-size: 24px; }
+    .wordmark-text.sm { font-size: 16px; }
+
+    /* ── Rounded container (app icon style) ── */
+    .app-icon {
+      border-radius: 22%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .app-icon.teal-bg { background: var(--teal); }
+    .app-icon.dark-bg  { background: var(--dark); }
+    .app-icon.amber-bg { background: var(--amber); }
+    .app-icon.size-lg  { width: 80px; height: 80px; }
+    .app-icon.size-xl  { width: 120px; height: 120px; }
+    .app-icon-inner { width: 70%; height: 70%; }
+
+    /* ── Nav bar mock ── */
+    .navbar-mock {
+      background: var(--surface);
+      border: 1px solid #2a2a32;
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 680px;
+    }
+    .navbar-links {
+      display: flex;
+      gap: 24px;
+    }
+    .navbar-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: #888;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .navbar-links a:hover { color: var(--light); }
+
+    /* ── Avatar ring ── */
+    .avatar-ring {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--teal);
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--teal);
+    }
+    .avatar-ring svg { width: 28px; height: 28px; }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #2a2a32;
+      margin: 40px 0;
+    }
+
+    /* ── Size comparison row ── */
+    .size-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 28px;
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 24px 32px;
+    }
+    .size-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .size-item span {
+      font-size: 10px;
+      color: #555;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dickson — Logo Preview</h1>
+
+  <div class="grid">
+
+    <!-- ── Section 1: Dark bg, teal + white ── -->
+    <p class="section-label">On dark background</p>
+    <div class="row">
+
+      <!-- Large teal on dark -->
+      <div class="swatch dark">
+        <img src="public/dickson-logo.svg" class="logo-xl teal-icon" alt="Dickson logo large teal"
+          style="color: #2dd4bf; filter: invert(74%) sepia(55%) saturate(400%) hue-rotate(130deg) brightness(95%);" />
+      </div>
+
+      <!-- Medium white on dark -->
+      <div class="swatch dark">
+        <img src="public/dickson-logo.svg" class="logo-md white-icon" alt="Dickson logo medium white"
+          style="filter: brightness(0) invert(1);" />
+      </div>
+
+      <!-- Small teal on dark -->
+      <div class="swatch dark">
+        <img src="public/dickson-logo.svg" class="logo-sm" alt="Dickson logo small teal"
+          style="filter: invert(74%) sepia(55%) saturate(400%) hue-rotate(130deg) brightness(95%);" />
+      </div>
+
+      <!-- XS on dark -->
+      <div class="swatch dark">
+        <img src="public/dickson-logo.svg" class="logo-xs" alt="Dickson logo xs"
+          style="filter: brightness(0) invert(1);" />
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Section 2: Inline SVG with currentColor (correct method) ── -->
+    <p class="section-label">Inline SVG with currentColor — correct rendering</p>
+    <div class="row">
+
+      <div class="swatch dark">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-xl teal-icon" fill="currentColor" aria-label="Dickson">
+          <!-- Shoulders -->
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <!-- Neck -->
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <!-- Head -->
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <!-- Ear left -->
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <!-- Ear right -->
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <!-- Hair -->
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <!-- Eye whites -->
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <!-- Irises -->
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <!-- Eye shine -->
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <!-- Nose -->
+          <path d="M46 53 L44 62 Q50 65 56 62 L54 53" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+          <!-- Teeth -->
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <!-- Upper lip -->
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <!-- Lower lip -->
+          <path d="M37 68 Q50 80 63 68" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+          <!-- Cheek lines -->
+          <path d="M33 63 Q30 68 32 74" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25" />
+          <path d="M67 63 Q70 68 68 74" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25" />
+          <!-- Eyebrows -->
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="swatch dark">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-lg white-icon" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M46 53 L44 62 Q50 65 56 62 L54 53" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M37 68 Q50 80 63 68" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="swatch dark">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-sm teal-icon" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="swatch dark">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-xs teal-icon" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Section 3: Light background ── -->
+    <p class="section-label">On light background</p>
+    <div class="row">
+
+      <div class="swatch light">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-xl dark-icon" fill="currentColor" style="color:#111114;" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M46 53 L44 62 Q50 65 56 62 L54 53" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M37 68 Q50 80 63 68" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+          <path d="M33 63 Q30 68 32 74" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25" />
+          <path d="M67 63 Q70 68 68 74" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Section 4: Wordmarks ── -->
+    <p class="section-label">With "Dickson" wordmark (Syne font)</p>
+    <div class="row" style="flex-direction:column; align-items:flex-start; gap:24px;">
+
+      <!-- XL wordmark teal on dark -->
+      <div class="swatch dark" style="padding:28px 36px;">
+        <div class="wordmark teal-icon">
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-lg" fill="currentColor" aria-label="Dickson">
+            <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+            <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+            <ellipse cx="50" cy="50" rx="26" ry="30" />
+            <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+            <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+            <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+            <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+            <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+            <ellipse cx="40" cy="48" rx="3" ry="3" />
+            <ellipse cx="60" cy="48" rx="3" ry="3" />
+            <circle cx="41.5" cy="46.5" r="1" fill="white" />
+            <circle cx="61.5" cy="46.5" r="1" fill="white" />
+            <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+            <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+          <span class="wordmark-text xl" style="color: #2dd4bf;">Dickson</span>
+        </div>
+      </div>
+
+      <!-- MD wordmark white on dark -->
+      <div class="swatch dark" style="padding:20px 28px;">
+        <div class="wordmark white-icon" style="color:#fff;">
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-md" fill="currentColor" aria-label="Dickson">
+            <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+            <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+            <ellipse cx="50" cy="50" rx="26" ry="30" />
+            <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+            <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+            <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+            <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+            <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+            <ellipse cx="40" cy="48" rx="3" ry="3" />
+            <ellipse cx="60" cy="48" rx="3" ry="3" />
+            <circle cx="41.5" cy="46.5" r="1" fill="white" />
+            <circle cx="61.5" cy="46.5" r="1" fill="white" />
+            <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+            <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+          <span class="wordmark-text lg">Dickson</span>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Section 5: App icon / rounded container ── -->
+    <p class="section-label">Rounded container (app icon style)</p>
+    <div class="row">
+
+      <!-- Teal bg, dark icon -->
+      <div class="app-icon teal-bg size-xl" style="color:#0a0a0b;">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="app-icon-inner" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <!-- Dark bg, teal icon -->
+      <div class="app-icon dark-bg size-xl" style="border:2px solid #2dd4bf33; color:#2dd4bf;">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="app-icon-inner" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <!-- Amber bg, dark icon -->
+      <div class="app-icon amber-bg size-xl" style="color:#0a0a0b;">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="app-icon-inner" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <!-- Small sizes -->
+      <div class="app-icon dark-bg size-lg" style="border:1px solid #2a2a32; color:#2dd4bf;">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="app-icon-inner" fill="currentColor">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Section 6: Navbar mock ── -->
+    <p class="section-label">In a navigation bar</p>
+    <div class="navbar-mock">
+      <div class="wordmark" style="color:#2dd4bf; gap:10px;">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:auto;" fill="currentColor" aria-label="Dickson">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:18px; color:#2dd4bf;">Dickson</span>
+      </div>
+      <nav class="navbar-links">
+        <a href="#">Services</a>
+        <a href="#">How it works</a>
+        <a href="#">Pros</a>
+        <a href="#">Support</a>
+      </nav>
+      <div class="avatar-ring">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Section 7: Size scale comparison ── -->
+    <p class="section-label">Scale comparison — 200px to 32px</p>
+    <div class="size-row">
+      <div class="size-item">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:200px;height:auto;color:#2dd4bf;" fill="currentColor">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <path d="M28 32 Q30 14 50 14 Q70 14 72 32 Q65 22 50 21 Q35 22 28 32 Z" opacity="0.35" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <circle cx="41.5" cy="46.5" r="1" fill="white" />
+          <circle cx="61.5" cy="46.5" r="1" fill="white" />
+          <path d="M46 53 L44 62 Q50 65 56 62 L54 53" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.4" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M37 68 Q50 80 63 68" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+          <path d="M33 63 Q30 68 32 74" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25" />
+          <path d="M67 63 Q70 68 68 74" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span>200px</span>
+      </div>
+      <div class="size-item">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:auto;color:#2dd4bf;" fill="currentColor">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <path d="M24 48 C20 48 18 52 18 56 C18 60 20 63 24 63 L26 63 L26 48 Z" />
+          <path d="M76 48 C80 48 82 52 82 56 C82 60 80 63 76 63 L74 63 L74 48 Z" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span>80px</span>
+      </div>
+      <div class="size-item">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:auto;color:#2dd4bf;" fill="currentColor">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span>48px</span>
+      </div>
+      <div class="size-item">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:auto;color:#2dd4bf;" fill="currentColor">
+          <path d="M10 120 C10 95 22 84 50 82 C78 84 90 95 90 120 Z" />
+          <path d="M40 80 L40 68 Q50 72 60 68 L60 80 Q50 84 40 80 Z" />
+          <ellipse cx="50" cy="50" rx="26" ry="30" />
+          <ellipse cx="40" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="60" cy="48" rx="5" ry="4.5" fill="white" opacity="0.9" />
+          <ellipse cx="40" cy="48" rx="3" ry="3" />
+          <ellipse cx="60" cy="48" rx="3" ry="3" />
+          <path d="M37 68 Q50 80 63 68 Q56 74 50 75 Q44 74 37 68 Z" fill="white" opacity="0.92" />
+          <path d="M37 68 Q43 64 50 65 Q57 64 63 68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M33 41 Q40 38 47 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          <path d="M53 40 Q60 38 67 41" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+        <span>32px</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
