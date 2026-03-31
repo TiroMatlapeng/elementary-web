@@ -94,14 +94,15 @@ Replace the current Canva-built website for Elementary Data & Software Solutions
    - Tableau, Power BI, QlikView/Qlik Sense, Informatica, SSIS
    - Oracle, SQL Server, MySQL, MongoDB, AI/MCP
 
-7. **Sign Up Section** — Dedicated section for app registration
-   - Headline: "Sign up to use our applications"
-   - Form: First name, last name, email, mobile, interest dropdown (Dickson as homeowner / tradesperson / business / all apps)
-   - Submit creates an account (initially stores interest; later connects to auth-service)
-
-8. **Contact / CTA** — Two-column layout
-   - Left: Persuasive copy, benefit bullets (free discovery session, honest pricing, Dickson early access, POPIA compliant)
-   - Right: Contact form (first name, last name, email, company, interest dropdown, message)
+7. **CTA / Get Involved** — Two-column layout with tabbed forms
+   - Left: Heading "Get involved early", benefit bullets:
+     - Every worker SAPS vetted — zero criminal records, zero exceptions
+     - Insured work — not happy, get reimbursed. Real money, not credit
+     - Dickson Van — transport for workers who need it
+     - WhatsApp updates — we'll keep you in the loop, not your spam folder
+   - Right: Tabbed form card with two tabs:
+     - **Tab 1 "Join the Waitlist"**: First name, last name, mobile (prominent — primary channel), email, city/area dropdown (Johannesburg, Pretoria, Cape Town, Durban, Other), role radio buttons (Homeowner / Tradesperson / Business). Submit: "Join the waitlist". Disclaimer: WhatsApp contact, POPIA compliant.
+     - **Tab 2 "Partner with Dickson"**: Full name, work email, company, role/title, industry dropdown (Insurance, Construction, Banking, Property, Other), message textarea. Submit: "Request a conversation". Higher-friction, relationship-driven B2B path.
 
 9. **Footer** — Four columns: Brand, Company links, Services links, Products links. "Built in South Africa" badge. POPIA compliance note. Copyright 2026.
 
@@ -118,7 +119,7 @@ Replace the current Canva-built website for Elementary Data & Software Solutions
   - **Insured work:** Not happy? You're covered. Reimbursement built into the platform.
   - **Reliable:** Workers can actually get to you — Dickson Van provides transport for those who need it.
   - **For businesses:** Insurance companies sourcing vetted tradespeople for claims. Construction firms finding skilled labour. Banks needing property maintenance partners.
-- CTA: "Sign up" / "Join the waitlist"
+- CTA: "Join the waitlist" → scrolls to waitlist form or embeds one inline
 
 **Bottom half — For tradespeople:**
 - Messaging shift: "This is your platform"
@@ -126,19 +127,20 @@ Replace the current Canva-built website for Elementary Data & Software Solutions
 - **Get verified:** SAPS check + skills vetting + references = a profile that stands out
 - **Get transport:** Dickson Van removes the transport barrier
 - **Get dignity:** "We're not building a gig economy. We're building a real economy." Fighting unemployment by removing barriers, not offering handouts.
-- CTA: "Sign up as a tradesperson"
+- CTA: "Join as a tradesperson" → waitlist form with tradesperson pre-selected
 
 ### 4.3 Privacy Policy (`/privacy`)
 
-- Full POPIA-compliant data privacy policy
-- Covers: what data is collected (sign-up forms, app usage, Dickson bookings), how it's stored (PostgreSQL, Hetzner Johannesburg), who it's shared with (payment processors, transport partners), user rights (access, correction, deletion), data retention, cookies, contact details for information officer
+- POPIA-compliant data privacy policy **for the Elementary website only** (not the Dickson app — that will have its own policies on its own platform)
+- Covers: what data is collected (waitlist forms, contact forms, cookies), how it's stored, purpose of collection (waitlist management, WhatsApp communication, B2B follow-up), user rights (access, correction, deletion, objection), data retention periods, third parties (WhatsApp Business API provider), contact details for information officer
+- Explicit consent statement at point of registration: "We'll contact you via WhatsApp and email about Dickson's launch"
 - Plain language where possible, legally sound
 - Should be reviewed by a lawyer before going live
 
 ### 4.4 Terms & Conditions (`/terms`)
 
-- Terms of service for using the Elementary website and Dickson platform
-- Covers: account creation, acceptable use, booking/payment terms, liability limitations, dispute resolution, intellectual property, termination, governing law (South African law)
+- Terms of use **for the Elementary website** (not the Dickson platform — separate terms when that launches)
+- Covers: website usage, waitlist participation, intellectual property, disclaimer of warranties, limitation of liability, governing law (South African law), POPIA compliance
 - Draft provided; lawyer review recommended before go-live
 
 ### 4.5 About (`/about`) — Future
@@ -148,19 +150,42 @@ Replace the current Canva-built website for Elementary Data & Software Solutions
 
 ---
 
-## 5. Sign-Up Flow
+## 5. Waitlist & Lead Generation Strategy
 
-**Phase 1 (launch):**
-- Simple form on the homepage and Dickson page
-- Captures: name, email, mobile, interest type
-- Stores in database (Next.js API route → PostgreSQL or simple JSON/email)
-- User receives confirmation email
-- Elementary team manually invites testers when ready
+**This is a marketing site, not an application.** No user accounts, no authentication, no app functionality. The site generates leads and builds a waitlist.
 
-**Phase 2 (post-launch):**
-- Connect sign-up to Elementary's existing auth-service (OAuth 2.1 / OIDC, Spring Authorization Server)
-- Full account creation with password
-- Direct access to Dickson app (and future apps)
+### 5.1 Waitlist Registration (Consumer & Tradesperson)
+
+**Stage 1 — On-site form (low friction):**
+- Captures: first name, last name, mobile (primary — WhatsApp is the channel in SA), email, city/area, role (homeowner / tradesperson / business)
+- Stored via Next.js API route → PostgreSQL or simple data store
+- Instant confirmation via WhatsApp Business API (Twilio or Bird): "You're on the Dickson founding list."
+
+**Stage 2 — Deep qualification (48-72hrs later, via WhatsApp):**
+- Homeowners: "What's the one home job you've been putting off?" + frequency + biggest worry
+- Tradespeople: trade type, experience, vehicle availability, area of operation
+- Data feeds product prioritisation and investor pitch
+
+### 5.2 B2B Partner Enquiries
+
+- Separate "Partner with Dickson" form — higher friction, company/role/industry required
+- These are relationship-driven, not drip-email targets
+- Handled personally by Elementary team within one business day
+
+### 5.3 Pre-Launch Engagement
+
+- WhatsApp-first drip sequence (8 weeks), email as backup
+- Referral mechanic: unique short-URL referral links designed for WhatsApp group forwarding
+- Incentives: free first booking (R150-R250 credit) for homeowners, zero platform fee for 60 days for tradespeople
+- Geographic phased rollout — waitlist queue has real teeth per area
+
+### 5.4 Launch Readiness Indicators
+
+Before public launch in any area:
+- Minimum 30 fully vetted tradespeople covering core trades
+- Minimum 500 consumer registrants in that geography
+- At least 1 B2B anchor client (even pilot agreement)
+- 50-100 successful beta bookings with NPS 70+
 
 ---
 

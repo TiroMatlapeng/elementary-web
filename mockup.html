@@ -1062,6 +1062,97 @@
       color: var(--text-muted);
     }
 
+    /* ─── Form Tab Toggle ──────────────────────────────────────── */
+    .form-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px;
+      margin-bottom: 28px;
+      width: 100%;
+    }
+
+    .form-tab-opt {
+      flex: 1;
+      text-align: center;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.25s;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .form-tab-opt.active {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .form-tab-panel { display: none; }
+    .form-tab-panel.active { display: block; }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .radio-option:hover {
+      border-color: var(--accent-glow);
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .radio-option input[type="radio"]:checked + .radio-label {
+      color: var(--text-primary);
+    }
+
+    .radio-option:has(input:checked) {
+      border-color: var(--accent-glow);
+      background: var(--accent-dim);
+    }
+
+    .radio-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Mobile prominent field */
+    .field-prominent input {
+      font-size: 1rem;
+      padding: 13px 14px;
+      border-color: var(--accent-glow);
+    }
+
     /* ─── Footer ────────────────────────────────────────────────── */
     footer {
       background: var(--bg-surface);
@@ -1240,7 +1331,6 @@
     </ul>
 
     <div style="display: flex; align-items: center; gap: 12px;">
-      <a href="#signup" class="btn-nav" style="background: transparent; color: var(--text-secondary); border: 1px solid var(--border);">Sign Up</a>
       <a href="#contact" class="btn-nav">Get Started</a>
     </div>
 
@@ -1682,71 +1772,6 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<!-- Sign Up / Try Our Apps                                  -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<section id="signup" style="padding: 100px 0; background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="container">
-    <div style="text-align: center; max-width: 640px; margin: 0 auto;">
-      <p class="section-label reveal">Try our apps</p>
-      <h2 class="section-heading reveal reveal-delay-1" style="text-align: center;">Sign up to use our applications</h2>
-      <p class="section-sub reveal reveal-delay-2" style="text-align: center; margin: 12px auto 48px;">
-        Create your Elementary account to get early access to Dickson and future products. Be among the first to experience what we're building.
-      </p>
-    </div>
-
-    <div style="max-width: 480px; margin: 0 auto;">
-      <div class="form-card reveal reveal-delay-3" style="background: var(--bg-elevated);">
-        <div class="form-title">Create your account</div>
-        <div class="form-sub">Free to sign up. We'll notify you when apps are ready for testing.</div>
-
-        <form onsubmit="handleSignup(event)">
-          <div class="form-row">
-            <div class="field">
-              <label for="su-fname">First name</label>
-              <input type="text" id="su-fname" placeholder="First name" autocomplete="given-name" required />
-            </div>
-            <div class="field">
-              <label for="su-lname">Last name</label>
-              <input type="text" id="su-lname" placeholder="Last name" autocomplete="family-name" required />
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="su-email">Email</label>
-            <input type="email" id="su-email" placeholder="you@example.co.za" autocomplete="email" required />
-          </div>
-
-          <div class="field">
-            <label for="su-phone">Mobile number</label>
-            <input type="tel" id="su-phone" placeholder="+27 82 000 0000" autocomplete="tel" />
-          </div>
-
-          <div class="field">
-            <label for="su-interest">I'm interested in</label>
-            <select id="su-interest" required>
-              <option value="" disabled selected>What would you like to try?</option>
-              <option value="dickson-homeowner">Dickson — I need a handyman</option>
-              <option value="dickson-tradesperson">Dickson — I'm a tradesperson/handyman</option>
-              <option value="dickson-business">Dickson — for my business (insurance, construction, etc.)</option>
-              <option value="all-apps">All apps — keep me in the loop on everything</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn-submit" id="signupBtn" style="width: 100%;">
-            Create account
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-          </button>
-        </form>
-
-        <div class="form-disclaimer">
-          By signing up you agree to our Terms and Privacy Policy. POPIA compliant.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════ -->
 <!-- CTA / Form                                              -->
 <!-- ═══════════════════════════════════════════════════════ -->
 <section class="cta-section" id="contact">
@@ -1757,9 +1782,9 @@
       <div class="cta-left reveal">
         <div class="section-divider"></div>
         <p class="section-label">Get in touch</p>
-        <h2 class="section-heading">Ready to build<br />something real?</h2>
+        <h2 class="section-heading">Get involved<br />early</h2>
         <p class="section-sub" style="margin-top: 16px;">
-          Whether you're looking to modernise a legacy platform or you want early access to Dickson — let's talk. No jargon, no fluff.
+          Whether you need a trusted handyman or you want to partner with us — the earlier you're in, the better your position.
         </p>
 
         <div class="cta-benefits">
@@ -1767,81 +1792,164 @@
             <span class="benefit-check">
               <svg viewBox="0 0 9 9"><polyline points="1.5 4.5 3.5 6.5 7.5 2.5"/></svg>
             </span>
-            Free discovery session — we'll understand your challenge before pitching anything
+            Every worker SAPS vetted — zero criminal records, zero exceptions
           </div>
           <div class="cta-benefit">
             <span class="benefit-check">
               <svg viewBox="0 0 9 9"><polyline points="1.5 4.5 3.5 6.5 7.5 2.5"/></svg>
             </span>
-            Honest timelines and transparent pricing — no hidden fees or scope creep
+            Insured work — not happy, get reimbursed. Real money, not credit
           </div>
           <div class="cta-benefit">
             <span class="benefit-check">
               <svg viewBox="0 0 9 9"><polyline points="1.5 4.5 3.5 6.5 7.5 2.5"/></svg>
             </span>
-            Dickson early access — be first to offer the service to your clients or team
+            Dickson Van — transport for workers who need it, so they actually arrive
           </div>
           <div class="cta-benefit">
             <span class="benefit-check">
               <svg viewBox="0 0 9 9"><polyline points="1.5 4.5 3.5 6.5 7.5 2.5"/></svg>
             </span>
-            South African registered — fully POPIA compliant, locally present
+            WhatsApp updates — we'll keep you in the loop, not your spam folder
           </div>
         </div>
       </div>
 
       <div class="reveal reveal-delay-1">
         <div class="form-card">
-          <div class="form-title">Let's start a conversation</div>
-          <div class="form-sub">We respond to every enquiry within one business day.</div>
 
-          <form onsubmit="handleSubmit(event)">
-            <div class="form-row">
-              <div class="field">
-                <label for="fname">First name</label>
-                <input type="text" id="fname" placeholder="Edwin" autocomplete="given-name" />
-              </div>
-              <div class="field">
-                <label for="lname">Last name</label>
-                <input type="text" id="lname" placeholder="Matlapeng" autocomplete="family-name" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="email">Work email</label>
-              <input type="email" id="email" placeholder="you@company.co.za" autocomplete="email" />
-            </div>
-
-            <div class="field">
-              <label for="company">Company</label>
-              <input type="text" id="company" placeholder="Acme Corp" autocomplete="organization" />
-            </div>
-
-            <div class="field">
-              <label for="interest">I'm interested in</label>
-              <select id="interest">
-                <option value="" disabled selected>Select an option…</option>
-                <option value="engineering">Engineering services for my company</option>
-                <option value="dickson">Trying Dickson (handyman marketplace)</option>
-                <option value="both">Both — tell me more about everything</option>
-                <option value="partnership">Strategic partnership or investment</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="message">Anything else? (optional)</label>
-              <textarea id="message" rows="3" placeholder="Brief context about your challenge or project…" style="resize: vertical;"></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit" id="submitBtn">
-              Send message
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          <!-- Tab toggle -->
+          <div class="form-tabs" role="tablist" aria-label="Contact options">
+            <button class="form-tab-opt active" id="tab-waitlist" role="tab" aria-selected="true" aria-controls="panel-waitlist" onclick="switchFormTab('waitlist')">
+              Join the Waitlist
             </button>
-          </form>
-
-          <div class="form-disclaimer">
-            No spam. Your data is handled in accordance with POPIA.
+            <button class="form-tab-opt" id="tab-partner" role="tab" aria-selected="false" aria-controls="panel-partner" onclick="switchFormTab('partner')">
+              Partner with Dickson
+            </button>
           </div>
+
+          <!-- Panel 1: Waitlist -->
+          <div class="form-tab-panel active" id="panel-waitlist" role="tabpanel" aria-labelledby="tab-waitlist">
+            <div class="form-title">Be first in line</div>
+            <div class="form-sub">Join the waitlist for early access to Dickson — South Africa's first properly vetted handyman platform.</div>
+
+            <form id="waitlistForm" onsubmit="handleWaitlist(event)">
+              <div class="form-row">
+                <div class="field">
+                  <label for="wl-fname">First name</label>
+                  <input type="text" id="wl-fname" placeholder="First name" autocomplete="given-name" required />
+                </div>
+                <div class="field">
+                  <label for="wl-lname">Last name</label>
+                  <input type="text" id="wl-lname" placeholder="Last name" autocomplete="family-name" required />
+                </div>
+              </div>
+
+              <div class="field field-prominent">
+                <label for="wl-mobile">Mobile number</label>
+                <input type="tel" id="wl-mobile" placeholder="+27 82 000 0000" autocomplete="tel" required />
+              </div>
+
+              <div class="field">
+                <label for="wl-email">Email</label>
+                <input type="email" id="wl-email" placeholder="you@example.co.za" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="wl-city">City / Area</label>
+                <select id="wl-city" required>
+                  <option value="" disabled selected>Select your area…</option>
+                  <option value="johannesburg">Johannesburg</option>
+                  <option value="pretoria">Pretoria</option>
+                  <option value="cape-town">Cape Town</option>
+                  <option value="durban">Durban</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>I am a…</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="wl-role" value="homeowner" required />
+                    <span class="radio-label">Homeowner — I need reliable help</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="wl-role" value="tradesperson" />
+                    <span class="radio-label">Tradesperson — I want work</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="wl-role" value="business" />
+                    <span class="radio-label">Business — insurance, construction, or property</span>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-submit" id="waitlistBtn">
+                Join the waitlist
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </button>
+            </form>
+
+            <div class="form-disclaimer">
+              We'll reach out via WhatsApp when Dickson launches in your area. No spam. POPIA compliant.
+            </div>
+          </div>
+
+          <!-- Panel 2: Partner -->
+          <div class="form-tab-panel" id="panel-partner" role="tabpanel" aria-labelledby="tab-partner">
+            <div class="form-title">For insurance, construction &amp; banking teams</div>
+            <div class="form-sub">We're onboarding anchor partners before public launch. Let's talk.</div>
+
+            <form id="partnerForm" onsubmit="handlePartner(event)">
+              <div class="field">
+                <label for="pt-name">Full name</label>
+                <input type="text" id="pt-name" placeholder="Full name" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="pt-email">Work email</label>
+                <input type="email" id="pt-email" placeholder="you@company.co.za" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="pt-company">Company name</label>
+                <input type="text" id="pt-company" placeholder="Company name" autocomplete="organization" required />
+              </div>
+
+              <div class="field">
+                <label for="pt-role">Role / Title</label>
+                <input type="text" id="pt-role" placeholder="e.g. Head of Claims" autocomplete="organization-title" />
+              </div>
+
+              <div class="field">
+                <label for="pt-industry">Industry</label>
+                <select id="pt-industry" required>
+                  <option value="" disabled selected>Select industry…</option>
+                  <option value="insurance">Insurance</option>
+                  <option value="construction">Construction</option>
+                  <option value="banking">Banking</option>
+                  <option value="property">Property</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="pt-message">Brief message</label>
+                <textarea id="pt-message" rows="3" placeholder="Tell us about your use case…" style="resize: vertical;"></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit" id="partnerBtn">
+                Request a conversation
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </button>
+            </form>
+
+            <div class="form-disclaimer">
+              We respond to every enquiry within one business day.
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -1967,47 +2075,56 @@
       : 'rgba(10,10,11,0.82)';
   }, { passive: true });
 
-  /* ── Form submit (mock) ──────────────────────────────── */
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <polyline points="2 8 6 12 14 4"/>
-      </svg>
-      Message sent!
-    `;
+  /* ── Form tab switching ──────────────────────────────── */
+  function switchFormTab(tab) {
+    const tabs = ['waitlist', 'partner'];
+    tabs.forEach(t => {
+      const btn = document.getElementById('tab-' + t);
+      const panel = document.getElementById('panel-' + t);
+      const isActive = t === tab;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+      panel.classList.toggle('active', isActive);
+    });
+  }
+
+  /* ── Shared success feedback helper ─────────────────── */
+  function showSuccess(btn, successLabel, resetLabel, form) {
+    const checkIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 8 6 12 14 4"/></svg>`;
+    const arrowIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>`;
+    btn.innerHTML = checkIcon + ' ' + successLabel;
     btn.style.background = '#22c55e';
     btn.style.boxShadow = '0 8px 32px rgba(34,197,94,0.3)';
     btn.disabled = true;
     setTimeout(() => {
-      btn.innerHTML = 'Send message <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>';
+      btn.innerHTML = resetLabel + ' ' + arrowIcon;
       btn.style.background = '';
       btn.style.boxShadow = '';
       btn.disabled = false;
-      e.target.reset();
+      form.reset();
     }, 3000);
   }
 
-  function handleSignup(e) {
+  /* ── Waitlist form submit ─────────────────────────────── */
+  function handleWaitlist(e) {
     e.preventDefault();
-    const btn = document.getElementById('signupBtn');
-    btn.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <polyline points="2 8 6 12 14 4"/>
-      </svg>
-      Account created!
-    `;
-    btn.style.background = '#22c55e';
-    btn.style.boxShadow = '0 8px 32px rgba(34,197,94,0.3)';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.innerHTML = 'Create account <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>';
-      btn.style.background = '';
-      btn.style.boxShadow = '';
-      btn.disabled = false;
-      e.target.reset();
-    }, 3000);
+    showSuccess(
+      document.getElementById('waitlistBtn'),
+      "You're on the list!",
+      'Join the waitlist',
+      e.target
+    );
+  }
+
+  /* ── Partner form submit ──────────────────────────────── */
+  function handlePartner(e) {
+    e.preventDefault();
+    showSuccess(
+      document.getElementById('partnerBtn'),
+      "Request sent!",
+      'Request a conversation',
+      e.target
+    );
   }
 
   /* ── Smooth scroll for anchor links ─────────────────── */
