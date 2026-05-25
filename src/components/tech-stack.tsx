@@ -1,3 +1,5 @@
+"use client";
+
 import { SectionReveal } from "./section-reveal";
 
 const TECH_PILLS = [
