@@ -1,0 +1,15 @@
+{{/*
+configmap.yaml — Non-secret environment variables for the Next.js application.
+
+NEXT_PUBLIC_* variables are inlined into the client-side bundle at build time
+by Next.js, but we also expose them at runtime for SSR/server components that
+read process.env directly.
+*/}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "elementary-web.configmapName" . }}
+  labels:
+    {{- include "elementary-web.labels" . | nindent 4 }}
+data:
+  NEXT_PUBLIC_WHATSAPP_NUMBER: {{ .Values.app.whatsappNumber | quote }}

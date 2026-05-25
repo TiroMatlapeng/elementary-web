@@ -1,0 +1,71 @@
+{{/*
+deployment.yaml — Kubernetes Deployment for the Next.js application.
+
+Notes:
+- imagePullPolicy: Always ensures the latest tag is always pulled.
+  If you pin to a SHA tag in production, change this to IfNotPresent.
+- DATABASE_URL is injected from the Secret at runtime.
+- NEXT_PUBLIC_WHATSAPP_NUMBER is injected from the ConfigMap.
+- Liveness and readiness probes hit GET / on port 3000.
+  If your app has a dedicated /health or /api/health endpoint, prefer that.
+*/}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "elementary-web.fullname" . }}
+  labels:
+    {{- include "elementary-web.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.app.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "elementary-web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "elementary-web.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
+          imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.app.port }}
+              protocol: TCP
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: {{ .Values.app.port | quote }}
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "elementary-web.secretName" . }}
+                  key: DATABASE_URL
+            - name: NEXT_PUBLIC_WHATSAPP_NUMBER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elementary-web.configmapName" . }}
+                  key: NEXT_PUBLIC_WHATSAPP_NUMBER
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.app.livenessProbe.httpGet.path }}
+              port: {{ .Values.app.livenessProbe.httpGet.port }}
+            initialDelaySeconds: {{ .Values.app.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.app.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.app.livenessProbe.failureThreshold }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.app.readinessProbe.httpGet.path }}
+              port: {{ .Values.app.readinessProbe.httpGet.port }}
+            initialDelaySeconds: {{ .Values.app.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.app.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.app.readinessProbe.failureThreshold }}
+          resources:
+            requests:
+              cpu: {{ .Values.app.resources.requests.cpu }}
+              memory: {{ .Values.app.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.app.resources.limits.cpu }}
+              memory: {{ .Values.app.resources.limits.memory }}

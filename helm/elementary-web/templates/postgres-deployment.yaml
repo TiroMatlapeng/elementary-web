@@ -1,0 +1,97 @@
+{{/*
+postgres-deployment.yaml — In-cluster PostgreSQL 16 (single replica).
+
+Data is persisted to a PVC (local-path on K3s). The pod mounts it at the
+standard Postgres data directory /var/lib/postgresql/data.
+
+The subPath "pgdata" is required because the local-path provisioner creates a
+directory directly, and postgres refuses to start if its data directory has a
+`lost+found` entry — subPath sidesteps this by mounting into a subdirectory.
+
+Credentials (POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_DB) are injected from
+the shared Secret. They match the DATABASE_URL injected into the app.
+*/}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "elementary-web.postgresServiceName" . }}
+  labels:
+    {{- include "elementary-web.postgresLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "elementary-web.postgresSelectorLabels" . | nindent 6 }}
+  strategy:
+    # Recreate is safer than RollingUpdate for single-replica stateful workloads.
+    # RollingUpdate would create a second pod that fails because ReadWriteOnce
+    # only allows one node to mount the PVC at a time.
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        {{- include "elementary-web.postgresSelectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: postgres
+          image: "{{ .Values.postgres.image.repository }}:{{ .Values.postgres.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "elementary-web.secretName" . }}
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "elementary-web.secretName" . }}
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "elementary-web.secretName" . }}
+                  key: POSTGRES_DB
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+              subPath: pgdata
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - $(POSTGRES_USER)
+                - -d
+                - $(POSTGRES_DB)
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - $(POSTGRES_USER)
+                - -d
+                - $(POSTGRES_DB)
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: {{ .Values.postgres.resources.requests.cpu }}
+              memory: {{ .Values.postgres.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.postgres.resources.limits.cpu }}
+              memory: {{ .Values.postgres.resources.limits.memory }}
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: {{ include "elementary-web.postgresPvcName" . }}

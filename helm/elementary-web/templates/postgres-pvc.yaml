@@ -1,0 +1,24 @@
+{{/*
+postgres-pvc.yaml — PersistentVolumeClaim for PostgreSQL data.
+
+storageClassName: local-path is the K3s default (Rancher local-path-provisioner).
+This binds to a directory on the node at /var/lib/rancher/k3s/storage/.
+
+Important: ReadWriteOnce means only one node can mount this volume at a time.
+This is appropriate for a single-replica PostgreSQL instance. If you scale to
+multi-node and need HA PostgreSQL, consider CloudNativePG or a replicated
+storage class (e.g., Longhorn) instead.
+*/}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "elementary-web.postgresPvcName" . }}
+  labels:
+    {{- include "elementary-web.postgresLabels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.postgres.persistence.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.postgres.persistence.size }}

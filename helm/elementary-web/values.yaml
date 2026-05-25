@@ -1,0 +1,106 @@
+# values.yaml — all tuneable defaults for the elementary-web chart.
+# Override at install time with --set or a values-prod.yaml file.
+
+# -----------------------------------------------------------------------------
+# Application (Next.js)
+# -----------------------------------------------------------------------------
+app:
+  image:
+    repository: ghcr.io/tiromatlapeng/elementary-web
+    tag: latest
+    pullPolicy: Always
+
+  replicaCount: 1
+
+  port: 3000
+
+  # Public (non-secret) environment variables
+  whatsappNumber: "27000000000"
+
+  resources:
+    requests:
+      cpu: 256m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Liveness probe — checks that the app is running
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 15
+    periodSeconds: 20
+    failureThreshold: 3
+
+  # Readiness probe — checks that the app is ready to receive traffic
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    failureThreshold: 3
+
+# -----------------------------------------------------------------------------
+# PostgreSQL (in-cluster, single replica)
+# -----------------------------------------------------------------------------
+postgres:
+  image:
+    repository: postgres
+    tag: 16-alpine
+
+  # These values are rendered into a Kubernetes Secret.
+  # Pass real values at install time:
+  #   --set postgres.password=<strong-password>
+  #   --set postgres.user=elementary
+  #   --set postgres.db=elementary
+  # NEVER commit real credentials to values.yaml.
+  password: "changeme"
+  user: "elementary"
+  db: "elementary"
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  persistence:
+    # K3s default storage class (local-path provisioner)
+    storageClassName: local-path
+    size: 5Gi
+
+# -----------------------------------------------------------------------------
+# Ingress
+# -----------------------------------------------------------------------------
+ingress:
+  enabled: true
+  # K3s ships with Traefik by default. This chart targets nginx ingress.
+  # Install nginx ingress controller before deploying:
+  #   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.3/deploy/static/provider/cloud/deploy.yaml
+  className: nginx
+  host: theelementary.co.za
+  tls:
+    enabled: true
+    # cert-manager ClusterIssuer name — must be provisioned in the cluster.
+    # See helm/README.md for setup instructions.
+    clusterIssuer: letsencrypt-prod
+    secretName: elementary-web-tls
+
+# -----------------------------------------------------------------------------
+# Service
+# -----------------------------------------------------------------------------
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+# -----------------------------------------------------------------------------
+# Name overrides (leave blank to use chart defaults)
+# -----------------------------------------------------------------------------
+nameOverride: ""
+fullnameOverride: ""

@@ -1,0 +1,16 @@
+apiVersion: v2
+name: elementary-web
+description: Helm chart for the Elementary website (Next.js + PostgreSQL on K3s)
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - nextjs
+  - elementary
+  - web
+home: https://theelementary.co.za
+sources:
+  - https://github.com/TiroMatlapeng/elementary-web
+maintainers:
+  - name: TiroMatlapeng
+    email: matlapengmatlapeng@gmail.com

@@ -1,0 +1,49 @@
+{{/*
+ingress.yaml — nginx Ingress with cert-manager TLS for theelementary.co.za
+
+Prerequisites (run once on the cluster — see helm/README.md):
+  1. nginx ingress controller installed (NOT Traefik — K3s default)
+  2. cert-manager installed with a letsencrypt-prod ClusterIssuer
+
+The cert-manager annotation triggers automatic certificate provisioning via
+Let's Encrypt. The TLS secret is created and rotated automatically.
+*/}}
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "elementary-web.fullname" . }}
+  labels:
+    {{- include "elementary-web.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.className | quote }}
+    {{- if .Values.ingress.tls.enabled }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.tls.clusterIssuer | quote }}
+    # Force HTTPS redirect for all HTTP traffic
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    {{- end }}
+    # Increase proxy timeouts for Next.js SSR responses
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host | quote }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "elementary-web.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}

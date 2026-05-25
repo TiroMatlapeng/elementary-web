@@ -1,0 +1,21 @@
+{{/*
+service.yaml — ClusterIP Service for the Next.js application.
+
+The Ingress routes external traffic to this Service on port 80,
+which forwards to the app container on port 3000.
+*/}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "elementary-web.fullname" . }}
+  labels:
+    {{- include "elementary-web.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "elementary-web.selectorLabels" . | nindent 4 }}

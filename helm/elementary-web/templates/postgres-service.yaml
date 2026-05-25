@@ -1,0 +1,24 @@
+{{/*
+postgres-service.yaml — ClusterIP Service for in-cluster PostgreSQL.
+
+The Next.js app connects to this service via DATABASE_URL, which is built from:
+  postgresql://<POSTGRES_USER>:<POSTGRES_PASSWORD>@<service-name>:5432/<POSTGRES_DB>
+
+This service is only reachable from inside the cluster — postgres is never
+exposed to the internet.
+*/}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "elementary-web.postgresServiceName" . }}
+  labels:
+    {{- include "elementary-web.postgresLabels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "elementary-web.postgresSelectorLabels" . | nindent 4 }}
