@@ -6,7 +6,7 @@ import Link from "next/link";
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Products", href: "#products" },
-  { label: "Dickson", href: "/dickson" },
+  { label: "Modiri", href: "/modiri" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -21,122 +21,118 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on route navigation (anchor clicks)
-  const handleLinkClick = () => setMenuOpen(false);
-
   return (
     <header
-      className={[
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-base/90 border-b border-border-hover backdrop-blur-md"
-          : "bg-base/60 border-b border-transparent backdrop-blur-sm",
-      ].join(" ")}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        background: scrolled ? "rgba(248,247,244,0.95)" : "var(--color-base)",
+        borderBottom: scrolled
+          ? "1px solid var(--color-border)"
+          : "1px solid transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        transition: "all 0.3s ease",
+      }}
     >
       <div
-        className="mx-auto flex items-center justify-between px-6 py-4"
-        style={{ maxWidth: "var(--width-content)" }}
+        style={{
+          maxWidth: "var(--width-content)",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 32px",
+          height: "62px",
+        }}
       >
-        {/* Wordmark */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-display font-bold text-text-primary text-lg tracking-tight"
-        >
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}>
           <span
-            className="rounded-full bg-accent flex-shrink-0"
-            style={{ width: 7, height: 7 }}
             aria-hidden="true"
+            style={{
+              width: "9px", height: "9px",
+              background: "var(--color-accent)",
+              borderRadius: "1px", transform: "rotate(45deg)",
+              flexShrink: 0, display: "block",
+            }}
           />
-          Elementary
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "17px", fontWeight: 800, color: "var(--color-ink)", letterSpacing: "0.01em" }}>
+            Elementary
+          </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
+        <nav className="hidden md:flex" style={{ gap: "32px" }} aria-label="Primary">
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={label}
               href={href}
-              className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
+              style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-text-muted)", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--color-ink)")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--color-text-muted)")}
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex">
           <Link
             href="#contact"
-            className="
-              px-5 py-2.5 rounded-lg text-sm font-semibold
-              bg-accent text-base
-              transition-all duration-200
-              hover:brightness-110 hover:shadow-[0_0_18px_rgba(45,212,191,0.45)]
-            "
+            style={{
+              background: "var(--color-ink)", color: "var(--color-accent)",
+              fontFamily: "var(--font-display)", fontSize: "12px", fontWeight: 700,
+              padding: "9px 20px", borderRadius: "3px", textDecoration: "none",
+              letterSpacing: "0.04em", textTransform: "uppercase" as const, transition: "opacity 0.2s",
+            }}
           >
             Get Started
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center items-center gap-1.5 w-9 h-9 text-text-secondary hover:text-text-primary transition-colors"
+          className="md:hidden"
+          style={{ display: "flex", flexDirection: "column" as const, justifyContent: "center", alignItems: "center", gap: "5px", width: "36px", height: "36px", background: "none", border: "none", cursor: "pointer", color: "var(--color-text-muted)" }}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={() => setMenuOpen((p) => !p)}
         >
-          <span
-            className={[
-              "block w-5 h-px bg-current transition-all duration-300 origin-center",
-              menuOpen ? "translate-y-[7px] rotate-45" : "",
-            ].join(" ")}
-          />
-          <span
-            className={[
-              "block w-5 h-px bg-current transition-all duration-300",
-              menuOpen ? "opacity-0 scale-x-0" : "",
-            ].join(" ")}
-          />
-          <span
-            className={[
-              "block w-5 h-px bg-current transition-all duration-300 origin-center",
-              menuOpen ? "-translate-y-[7px] -rotate-45" : "",
-            ].join(" ")}
-          />
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              style={{
+                display: "block", width: "20px", height: "1.5px",
+                background: "currentColor", borderRadius: "1px", transition: "all 0.3s ease",
+                transform: menuOpen && i === 0 ? "translateY(6.5px) rotate(45deg)" : menuOpen && i === 2 ? "translateY(-6.5px) rotate(-45deg)" : "none",
+                opacity: menuOpen && i === 1 ? 0 : 1,
+              }}
+            />
+          ))}
         </button>
       </div>
 
-      {/* Mobile dropdown */}
       <div
-        className={[
-          "md:hidden overflow-hidden transition-all duration-300",
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0",
-        ].join(" ")}
+        className="md:hidden"
+        style={{ overflow: "hidden", maxHeight: menuOpen ? "320px" : "0", opacity: menuOpen ? 1 : 0, transition: "max-height 0.3s ease, opacity 0.3s ease" }}
         aria-hidden={!menuOpen}
       >
-        <nav
-          className="flex flex-col px-6 pb-6 gap-4 border-t border-border"
-          aria-label="Mobile primary"
-        >
+        <nav style={{ display: "flex", flexDirection: "column" as const, padding: "0 32px 24px", borderTop: "1px solid var(--color-border)" }}>
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={label}
               href={href}
-              onClick={handleLinkClick}
-              className="text-base text-text-secondary hover:text-text-primary transition-colors duration-200 pt-3"
+              onClick={() => setMenuOpen(false)}
+              style={{ fontSize: "15px", fontWeight: 500, color: "var(--color-text-secondary)", textDecoration: "none", padding: "14px 0", borderBottom: "1px solid var(--color-border)" }}
             >
               {label}
             </Link>
           ))}
           <Link
             href="#contact"
-            onClick={handleLinkClick}
-            className="
-              mt-2 px-5 py-3 rounded-lg text-sm font-semibold text-center
-              bg-accent text-base
-              transition-all duration-200
-              hover:brightness-110 hover:shadow-[0_0_18px_rgba(45,212,191,0.45)]
-            "
+            onClick={() => setMenuOpen(false)}
+            style={{ marginTop: "16px", background: "var(--color-ink)", color: "var(--color-accent)", fontFamily: "var(--font-display)", fontSize: "13px", fontWeight: 700, padding: "12px 20px", borderRadius: "3px", textDecoration: "none", textAlign: "center" as const, letterSpacing: "0.04em", textTransform: "uppercase" as const }}
           >
             Get Started
           </Link>
