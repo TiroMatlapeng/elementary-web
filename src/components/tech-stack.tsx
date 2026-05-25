@@ -1,120 +1,50 @@
-"use client";
-
-import { SectionReveal } from "@/components/section-reveal";
+import { SectionReveal } from "./section-reveal";
 
 const TECH_PILLS = [
-  "Spring Boot",
-  "Angular 19",
-  "Flutter",
-  "Kubernetes",
-  "PostgreSQL",
-  "Apache Kafka",
-  "TypeScript",
-  "Docker",
-  "AWS / Azure",
-  "Terraform",
-  "Redis",
-  "GraphQL",
-  "Java 21",
-  "dbt",
-  "Airflow",
-  "Tableau",
-  "Power BI",
-  "QlikView / Qlik Sense",
-  "Informatica",
-  "SSIS",
-  "Oracle",
-  "SQL Server",
-  "MySQL",
-  "MongoDB",
-  "AI / MCP",
+  "Spring Boot", "Angular 19", "Flutter", "Kubernetes", "PostgreSQL",
+  "Apache Kafka", "TypeScript", "Docker", "AWS / Azure", "Terraform",
+  "Redis", "GraphQL", "Java 21", "dbt", "Airflow", "Tableau",
+  "Power BI", "QlikView / Qlik Sense", "Informatica", "SSIS",
+  "Oracle", "SQL Server", "MySQL", "MongoDB", "AI / MCP",
 ] as const;
 
 export function TechStack() {
   return (
-    <section
-      id="tech"
-      className="py-20 border-t"
-      style={{ borderColor: "var(--color-border)" }}
-    >
-      <div
-        className="mx-auto px-6 grid grid-cols-1 gap-12 md:grid-cols-[1fr_1.5fr] md:gap-16"
-        style={{ maxWidth: "var(--width-content)" }}
-      >
-        {/* Left column */}
+    <section id="tech" style={{ padding: "72px 32px", background: "var(--color-base)", borderTop: "1px solid var(--color-border)" }}>
+      <div style={{ maxWidth: "var(--width-content)", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "48px", alignItems: "start" }}>
         <SectionReveal delay={0}>
           <div>
-            <div
-              className="border-t-2 w-12 mb-6"
-              style={{ borderColor: "var(--color-accent)" }}
-            />
-            <p
-              className="text-xs font-semibold uppercase tracking-widest mb-3"
-              style={{ color: "var(--color-accent)" }}
-            >
-              Engineering depth
-            </p>
-            <h2
-              className="font-display font-bold leading-tight mb-4"
-              style={{
-                fontSize: "1.8rem",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              Serious engineers.
-              <br />
-              Proven stack.
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
+                03 / HOW WE BUILD
+              </span>
+              <span style={{ flex: 1, height: "1px", background: "var(--color-border)", display: "block" }} />
+            </div>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 900, letterSpacing: "-0.01em", color: "var(--color-ink)", lineHeight: 1.05, marginBottom: "16px" }}>
+              Serious engineers.{" "}
+              <em style={{ fontStyle: "italic", color: "var(--color-text-muted)" }}>Proven stack.</em>
             </h2>
-            <p
-              className="text-base leading-relaxed"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              We choose tools for production, not portfolios. Every technology
-              in our stack has real delivery behind it — from core banking
-              integrations to high-throughput data pipelines and cloud-native
-              platforms built to scale.
+            <p style={{ fontSize: "13px", lineHeight: 1.75, color: "var(--color-text-secondary)", maxWidth: "340px" }}>
+              We choose tools for production, not portfolios. Every technology has real delivery behind it — from core banking integrations to high-throughput data pipelines.
             </p>
           </div>
         </SectionReveal>
 
-        {/* Right column */}
         <SectionReveal delay={1}>
-          <div className="flex flex-wrap gap-2">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
             {TECH_PILLS.map((tech) => (
-              <TechPill key={tech} label={tech} />
+              <span
+                key={tech}
+                style={{ display: "inline-block", border: "1px solid var(--color-border)", borderRadius: "2px", padding: "6px 12px", fontSize: "11px", fontWeight: 500, color: "var(--color-ink)", background: "var(--color-base)", transition: "all 0.2s", cursor: "default" }}
+                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-ink)"; el.style.background = "var(--color-ink)"; el.style.color = "var(--color-accent)"; }}
+                onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-border)"; el.style.background = "var(--color-base)"; el.style.color = "var(--color-ink)"; }}
+              >
+                {tech}
+              </span>
             ))}
           </div>
         </SectionReveal>
       </div>
     </section>
-  );
-}
-
-function TechPill({ label }: { label: string }) {
-  return (
-    <span
-      className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs border cursor-default transition-colors duration-200"
-      style={{
-        background: "var(--color-surface)",
-        borderColor: "var(--color-border)",
-        color: "var(--color-text-secondary)",
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget;
-        el.style.color = "var(--color-accent)";
-        el.style.borderColor = "var(--color-accent-glow)";
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget;
-        el.style.color = "var(--color-text-secondary)";
-        el.style.borderColor = "var(--color-border)";
-      }}
-    >
-      <span
-        className="block w-1 h-1 rounded-full flex-shrink-0"
-        style={{ background: "var(--color-accent)", opacity: 0.7 }}
-      />
-      {label}
-    </span>
   );
 }
