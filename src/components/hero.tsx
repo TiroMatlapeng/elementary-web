@@ -1,157 +1,62 @@
 import Link from "next/link";
 import { SectionReveal } from "./section-reveal";
+import { DiagonalCut } from "./diagonal-cut";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-      {/* Radial glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 -top-24"
-        style={{
-          width: 900,
-          height: 600,
-          background:
-            "radial-gradient(ellipse at 50% 0%, var(--color-accent-glow) 0%, transparent 70%)",
-          animation: "pulse-glow 6s ease-in-out infinite",
-        }}
-      />
+    <section style={{ paddingTop: "62px" }}>
+      <div style={{ background: "var(--color-violet)", padding: "72px 32px 64px", position: "relative", overflow: "hidden" }}>
+        {/* Blueprint registration cross */}
+        <div aria-hidden="true" style={{ position: "absolute", top: "28px", right: "56px", width: "20px", height: "20px", background: "linear-gradient(rgba(201,241,53,0.2) 1px, transparent 1px) 50% 0/1px 100%, linear-gradient(90deg, rgba(201,241,53,0.2) 1px, transparent 1px) 0 50%/100% 1px" }} />
+        <span aria-hidden="true" style={{ position: "absolute", top: "18px", right: "82px", fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(201,241,53,0.3)" }}>
+          REV.001 / ZA-2026
+        </span>
 
-      {/* Grid overlay */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-          maskImage:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%)",
-        }}
-      />
+        <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
+          <SectionReveal delay={0}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
+              <span style={{ display: "block", width: "20px", height: "1px", background: "var(--color-accent)", flexShrink: 0 }} />
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(201,241,53,0.65)" }}>
+                South African Software Engineering
+              </span>
+            </div>
+          </SectionReveal>
 
-      {/* Floating orb — top right */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute"
-        style={{
-          width: 480,
-          height: 480,
-          top: "10%",
-          right: "-8%",
-          background: "var(--color-accent)",
-          borderRadius: "50%",
-          filter: "blur(80px)",
-          opacity: 0.18,
-          animation: "drift 14s ease-in-out infinite",
-        }}
-      />
+          <SectionReveal delay={1}>
+            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 900, lineHeight: 0.9, letterSpacing: "-0.02em" }}>
+              <span style={{ display: "block", fontSize: "clamp(72px, 11vw, 140px)", color: "#f0eafa" }}>ENGI</span>
+              <span style={{ display: "block", fontSize: "clamp(72px, 11vw, 140px)", color: "#f0eafa" }}>NEER</span>
+              <span style={{ display: "block", fontSize: "clamp(72px, 11vw, 140px)", color: "transparent", WebkitTextStroke: "2px var(--color-accent)" }}>ING</span>
+              <span style={{ display: "block", fontSize: "clamp(52px, 7.5vw, 96px)", color: "var(--color-accent)", fontStyle: "italic", marginTop: "8px" }}>
+                FROM THE GROUND UP.
+              </span>
+            </h1>
+          </SectionReveal>
+        </div>
+      </div>
 
-      {/* Floating orb — bottom left */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute"
-        style={{
-          width: 360,
-          height: 360,
-          bottom: "8%",
-          left: "-6%",
-          background: "var(--color-accent)",
-          borderRadius: "50%",
-          filter: "blur(80px)",
-          opacity: 0.1,
-          animation: "drift 18s ease-in-out infinite reverse",
-        }}
-      />
+      <DiagonalCut from="var(--color-violet)" to="var(--color-base)" slope="right" />
 
-      {/* Content */}
-      <div
-        className="relative z-10 w-full mx-auto px-6"
-        style={{ maxWidth: "var(--width-content)" }}
-      >
-        {/* Eyebrow badge */}
-        <SectionReveal delay={0}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8"
-            style={{
-              background: "var(--color-accent-dim)",
-              borderColor: "var(--color-accent-glow)",
-            }}
-          >
-            <span
-              className="block w-1.5 h-1.5 rounded-full"
-              style={{
-                background: "var(--color-accent)",
-                animation: "blink 2s ease-in-out infinite",
-              }}
-            />
-            <span
-              className="text-sm font-medium tracking-wide"
-              style={{ color: "var(--color-accent)" }}
-            >
-              South African Software Engineering
-            </span>
-          </div>
-        </SectionReveal>
+      <div style={{ background: "var(--color-base)", padding: "40px 32px 64px", borderBottom: "1px solid var(--color-border)" }}>
+        <div style={{ maxWidth: "var(--width-content)", margin: "0 auto", display: "flex", gap: "80px", alignItems: "flex-start", flexWrap: "wrap" }}>
+          <SectionReveal delay={2}>
+            <p style={{ fontSize: "16px", lineHeight: 1.75, color: "var(--color-text-secondary)", maxWidth: "480px", flex: "1 1 320px" }}>
+              We build modern platforms from scratch and breathe new life into legacy systems —{" "}
+              <strong style={{ color: "var(--color-ink)", fontWeight: 700 }}>precise architecture, real delivery, no filler.</strong>
+            </p>
+          </SectionReveal>
 
-        {/* Headline */}
-        <SectionReveal delay={1}>
-          <h1
-            className="font-display font-extrabold leading-[1.06] tracking-tight mb-6"
-            style={{
-              fontSize: "clamp(3rem, 7vw, 5.5rem)",
-              color: "var(--color-text-primary)",
-            }}
-          >
-            Engineering from the{" "}
-            <em
-              className="not-italic"
-              style={{ color: "var(--color-accent)" }}
-            >
-              ground up.
-            </em>
-          </h1>
-        </SectionReveal>
-
-        {/* Subtitle */}
-        <SectionReveal delay={2}>
-          <p
-            className="text-lg leading-relaxed max-w-xl mb-10"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            We build modern platforms from scratch and breathe new life into
-            legacy systems — precise architecture, real delivery, no filler.
-          </p>
-        </SectionReveal>
-
-        {/* CTAs */}
-        <SectionReveal delay={3}>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/#services"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm transition-all duration-200 hover:brightness-110 active:scale-95"
-              style={{
-                background: "var(--color-accent)",
-                color: "var(--color-text-dark)",
-              }}
-            >
-              Explore our services
-            </Link>
-            <Link
-              href="/dickson"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border transition-all duration-200 hover:bg-white/5 active:scale-95"
-              style={{
-                borderColor: "var(--color-border-hover)",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              Try Dickson
-            </Link>
-          </div>
-        </SectionReveal>
+          <SectionReveal delay={3}>
+            <div style={{ display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap", paddingTop: "4px" }}>
+              <Link href="#services" style={{ background: "var(--color-ink)", color: "var(--color-base)", fontFamily: "var(--font-body)", fontSize: "13px", fontWeight: 700, padding: "13px 26px", borderRadius: "3px", textDecoration: "none" }}>
+                Explore our services
+              </Link>
+              <Link href="/modiri" style={{ fontSize: "13px", fontWeight: 700, color: "var(--color-ink)", textDecoration: "underline", textUnderlineOffset: "4px", whiteSpace: "nowrap" }}>
+                Try Modiri →
+              </Link>
+            </div>
+          </SectionReveal>
+        </div>
       </div>
     </section>
   );
