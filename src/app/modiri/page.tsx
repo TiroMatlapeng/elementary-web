@@ -5,7 +5,7 @@ import { DicksonLogo } from "@/components/dickson-logo";
 import { WaitlistForm } from "@/components/waitlist-form";
 
 export const metadata: Metadata = {
-  title: "Dickson — Vetted Handyman Services | Elementary",
+  title: "Modiri — Vetted Handyman Services | Elementary",
   description:
     "SAPS-checked, referenced, and insured tradespeople who can actually get to you. South Africa's first properly vetted handyman marketplace.",
 };
@@ -55,7 +55,7 @@ const HOMEOWNER_FEATURES = [
       </svg>
     ),
     title: "They actually arrive",
-    body: "Dickson Van provides transport for workers who need it. No-shows are not acceptable — we remove the barriers that cause them.",
+    body: "Modiri Van provides transport for workers who need it. No-shows are not acceptable — we remove the barriers that cause them.",
   },
 ];
 
@@ -90,7 +90,7 @@ const TRADESPERSON_FEATURES = [
       </svg>
     ),
     title: "Get transport",
-    body: "No vehicle? Dickson Van removes the barrier. Distance should not decide who gets work.",
+    body: "No vehicle? Modiri Van removes the barrier. Distance should not decide who gets work.",
   },
   {
     icon: (
@@ -122,7 +122,7 @@ function FeatureIcon({ children }: { children: React.ReactNode }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────
 
-export default function DicksonPage() {
+export default function ModiriPage() {
   return (
     <main>
       {/* ── 1. Hero ──────────────────────────────────────────────── */}
@@ -140,7 +140,6 @@ export default function DicksonPage() {
             background:
               "radial-gradient(ellipse at 50% 0%, var(--color-accent-glow) 0%, transparent 70%)",
             transform: "translateX(-50%)",
-            animation: "pulse-glow 7s ease-in-out infinite",
           }}
         />
 
@@ -150,8 +149,8 @@ export default function DicksonPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)
+              linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)
             `,
             backgroundSize: "60px 60px",
             maskImage:
@@ -197,7 +196,7 @@ export default function DicksonPage() {
                 color: "var(--color-text-primary)",
               }}
             >
-              Dickson
+              Modiri
             </h1>
           </SectionReveal>
 
@@ -242,7 +241,7 @@ export default function DicksonPage() {
               className="text-base leading-relaxed max-w-2xl mb-12"
               style={{ color: "var(--color-text-secondary)" }}
             >
-              Whether you live alone or not, Dickson means someone is
+              Whether you live alone or not, Modiri means someone is
               accountable before they ever knock on your door. Your name on our
               system. Their record on ours.
             </p>
@@ -307,7 +306,7 @@ export default function DicksonPage() {
                 >
                   Rapid-response repairs after claims, verified contractors for
                   site work, reliable tradespeople for property portfolios.
-                  Dickson plugs directly into your operations.
+                  Modiri plugs directly into your operations.
                 </p>
               </div>
               <Link
@@ -315,7 +314,7 @@ export default function DicksonPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-95 flex-shrink-0"
                 style={{
                   background: "var(--color-accent)",
-                  color: "var(--color-text-dark)",
+                  color: "var(--color-ink)",
                 }}
               >
                 Partner with us
@@ -368,7 +367,7 @@ export default function DicksonPage() {
               style={{ color: "var(--color-text-secondary)" }}
             >
               South Africa has millions of skilled hands and nowhere near enough
-              work. We built Dickson to change that — a platform where your
+              work. We built Modiri to change that — a platform where your
               ability is the only thing that matters.
             </p>
           </SectionReveal>
@@ -420,7 +419,7 @@ export default function DicksonPage() {
                   color: "var(--color-text-primary)",
                 }}
               >
-                Join the Dickson waitlist
+                Join the Modiri waitlist
               </h2>
               <p
                 className="text-base leading-relaxed"
