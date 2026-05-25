@@ -1,113 +1,74 @@
 import Link from "next/link";
 
-const COMPANY_LINKS = [
-  { label: "About Elementary", href: "#about" },
-  { label: "Our approach", href: "#approach" },
-  { label: "Contact", href: "#contact" },
-];
-
 const SERVICE_LINKS = [
   { label: "Software Engineering", href: "#services" },
   { label: "App Modernisation", href: "#services" },
   { label: "Cloud Migration", href: "#services" },
-  { label: "Data Warehousing & Lakes", href: "#services" },
-  { label: "Data Management", href: "#services" },
+  { label: "Data Warehousing", href: "#services" },
   { label: "BI & Analytics", href: "#services" },
-  { label: "Data Virtualisation", href: "#services" },
-];
+] as const;
 
 const PRODUCT_LINKS = [
-  { label: "Dickson App", href: "/dickson" },
-  { label: "For homeowners", href: "/dickson#homeowners" },
-  { label: "For tradespeople", href: "/dickson#tradespeople" },
-  { label: "Join the waitlist", href: "/dickson#waitlist" },
-];
+  { label: "Modiri", href: "/modiri" },
+  { label: "For homeowners", href: "/modiri#homeowners" },
+  { label: "For tradespeople", href: "/modiri#tradespeople" },
+  { label: "Join the waitlist", href: "/modiri#waitlist" },
+] as const;
 
-function FooterColumn({
-  heading,
-  links,
-}: {
-  heading: string;
-  links: { label: string; href: string }[];
-}) {
+const COMPANY_LINKS = [
+  { label: "About Elementary", href: "#about" },
+  { label: "Our approach", href: "#about" },
+  { label: "Contact", href: "#contact" },
+] as const;
+
+function FooterColumn({ heading, links }: { heading: string; links: readonly { label: string; href: string }[] }) {
   return (
-    <div className="flex flex-col gap-4">
-      <h3 className="text-xs font-semibold uppercase tracking-widest text-text-muted">
+    <div>
+      <div style={{ fontFamily: "var(--font-mono)", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(240,234,250,0.25)", marginBottom: "14px" }}>
         {heading}
-      </h3>
-      <ul className="flex flex-col gap-3">
-        {links.map(({ label, href }) => (
-          <li key={label}>
-            <Link
-              href={href}
-              className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      </div>
+      {links.map(({ label, href }) => (
+        <Link
+          key={label}
+          href={href}
+          style={{ display: "block", fontSize: "12px", color: "rgba(240,234,250,0.45)", textDecoration: "none", marginBottom: "10px", transition: "color 0.2s" }}
+          onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#f0eafa")}
+          onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(240,234,250,0.45)")}
+        >
+          {label}
+        </Link>
+      ))}
     </div>
   );
 }
 
 export default function Footer() {
   return (
-    <footer className="bg-base border-t border-border">
-      <div
-        className="mx-auto px-6 pt-16 pb-10"
-        style={{ maxWidth: "var(--width-content)" }}
-      >
-        {/* Four-column grid */}
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand column */}
-          <div className="flex flex-col gap-5">
-            <Link
-              href="/"
-              className="flex items-center gap-2 font-display font-bold text-text-primary text-lg tracking-tight w-fit"
-            >
-              <span
-                className="rounded-full bg-accent flex-shrink-0"
-                style={{ width: 7, height: 7 }}
-                aria-hidden="true"
-              />
-              Elementary
-            </Link>
-            <p className="text-sm text-text-muted leading-relaxed max-w-[220px]">
-              Elementary Data &amp; Software Solutions. Engineering from the
-              ground up.
+    <footer style={{ background: "var(--color-violet)", padding: "60px 32px 36px" }}>
+      <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "40px", marginBottom: "48px" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+              <span style={{ width: "8px", height: "8px", background: "var(--color-accent)", borderRadius: "1px", transform: "rotate(45deg)", display: "block", flexShrink: 0 }} />
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "17px", fontWeight: 800, color: "#f0eafa" }}>Elementary</span>
+            </div>
+            <p style={{ fontSize: "12px", color: "rgba(240,234,250,0.3)", lineHeight: 1.6, maxWidth: "200px" }}>
+              South African software engineering. Modern platforms, real delivery, no filler.
             </p>
-            {/* Built in South Africa badge */}
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-text-muted border border-border rounded-full px-3 py-1.5 w-fit">
-              <span aria-hidden="true">🇿🇦</span>
-              Built in South Africa
-            </span>
           </div>
-
-          <FooterColumn heading="Company" links={COMPANY_LINKS} />
           <FooterColumn heading="Services" links={SERVICE_LINKS} />
           <FooterColumn heading="Products" links={PRODUCT_LINKS} />
+          <FooterColumn heading="Company" links={COMPANY_LINKS} />
         </div>
 
-        {/* Divider */}
-        <div className="mt-14 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-text-muted">
-            &copy; {new Date().getFullYear()} Elementary Data &amp; Software
-            Solutions. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/privacy"
-              className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-200"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-200"
-            >
-              Terms
-            </Link>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "22px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.04em", textTransform: "uppercase", color: "rgba(240,234,250,0.2)" }}>
+            © {new Date().getFullYear()} Elementary — All rights reserved
+          </span>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {[{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }].map(({ label, href }) => (
+              <Link key={label} href={href} style={{ fontSize: "11px", color: "rgba(240,234,250,0.2)", textDecoration: "none" }}>{label}</Link>
+            ))}
           </div>
         </div>
       </div>
