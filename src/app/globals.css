@@ -1,84 +1,69 @@
+/* src/app/globals.css */
 @import "tailwindcss";
 
 @theme {
-  --color-base: #0a0a0b;
-  --color-surface: #141418;
-  --color-elevated: #1c1c22;
-  --color-light: #f5f5f7;
-  --color-light-2: #eaeaec;
-  --color-accent: #2dd4bf;
-  --color-accent-light: #5ee7d4;
-  --color-accent-dim: rgba(45, 212, 191, 0.10);
-  --color-accent-glow: rgba(45, 212, 191, 0.22);
-  --color-text-primary: #f0f0f4;
-  --color-text-secondary: #9898a8;
-  --color-text-muted: #5c5c70;
-  --color-text-dark: #111114;
-  --color-text-dark-2: #3a3a4a;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
+  /* Surfaces */
+  --color-base: #f8f7f4;
+  --color-surface: #f0ede6;
+  --color-elevated: #e8e4db;
+  --color-violet: #100a1e;
+  --color-violet-mid: #18103a;
 
-  --font-display: "Syne", sans-serif;
+  /* Text */
+  --color-light: #f8f7f4;
+  --color-ink: #0f0a20;
+  --color-text-primary: #0f0a20;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-text-on-violet: #f0eafa;
+
+  /* Accent — acid yellow */
+  --color-accent: #c9f135;
+  --color-accent-light: #d6f55c;
+  --color-accent-dim: rgba(201, 241, 53, 0.12);
+  --color-accent-glow: rgba(201, 241, 53, 0.22);
+
+  /* Borders */
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.15);
+  --color-border-violet: rgba(255, 255, 255, 0.07);
+
+  /* Fonts */
+  --font-display: "Barlow Condensed", sans-serif;
   --font-body: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  /* Radii */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
 
+  /* Layout */
   --width-content: 1160px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: #0a0a0b;
-  color: #f0f0f4;
-  font-family: "DM Sans", sans-serif;
+  background: var(--color-base);
+  color: var(--color-ink);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* Scroll reveal animation */
+/* Scroll reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Glow animation for hero */
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
-}
-
-/* Floating orb drift */
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(20px, -30px); }
-  66% { transform: translate(-15px, 20px); }
-}
-
-/* Blinking dot */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-/* Services grid card hover */
-.service-card:hover {
-  border-color: var(--color-accent) !important;
-}
-
-/* Dickson feature card hover */
-.feature-card:hover {
-  border-color: var(--color-accent-glow) !important;
-}
+/* Service card hover */
+.service-card:hover { background: #f0eefa !important; }
