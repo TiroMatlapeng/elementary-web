@@ -3,7 +3,7 @@ region: ams
 services:
   - name: web
     github:
-      repo: edwinmatlapeng/elementary-web
+      repo: TiroMatlapeng/elementary-web
       branch: main
       deploy_on_push: true
     build_command: npm run build
