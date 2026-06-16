@@ -62,6 +62,7 @@ export function WaitlistForm() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -73,17 +74,31 @@ export function WaitlistForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
     try {
-      await fetch("/api/waitlist", {
+      const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      if (!res.ok) {
+        // Surface a server-provided message when present, else a generic one.
+        let message = "Something went wrong. Please try again.";
+        try {
+          const data = (await res.json()) as { error?: string };
+          if (data?.error) message = data.error;
+        } catch {
+          // non-JSON error body — keep the generic message
+        }
+        setError(message);
+        return;
+      }
+      setSuccess(true);
     } catch {
-      // API route not yet implemented — show success anyway
+      // Network/transport failure — let the user retry.
+      setError("We couldn't reach the server. Please check your connection and try again.");
     } finally {
       setSubmitting(false);
-      setSuccess(true);
     }
   }
 
@@ -358,6 +373,17 @@ export function WaitlistForm() {
           ))}
         </div>
       </fieldset>
+
+      {error && (
+        <p
+          role="alert"
+          aria-live="assertive"
+          className="text-sm text-center"
+          style={{ color: "#f87171" }}
+        >
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"
