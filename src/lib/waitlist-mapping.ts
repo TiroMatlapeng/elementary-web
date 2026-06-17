@@ -15,6 +15,9 @@ export type ElementaryRole = "homeowner" | "tradesperson" | "business";
 /** The canonical Modiri waitlist track enum (only the three a website can send). */
 export type WaitlistTrack = "HOMEOWNER" | "ARTISAN" | "COMPANY";
 
+/** The Modiri platform enum — which mobile OS the registrant is on. */
+export type WaitlistPlatform = "IOS" | "ANDROID";
+
 /** Raw, untrusted body shape posted by the form. All fields optional/unknown. */
 export interface ElementaryWaitlistBody {
   firstName?: unknown;
@@ -23,6 +26,7 @@ export interface ElementaryWaitlistBody {
   email?: unknown;
   city?: unknown;
   role?: unknown;
+  platform?: unknown;
 }
 
 /** The body sent on the wire to POST /api/v1/waitlist. Matches the fixture exactly. */
@@ -32,6 +36,7 @@ export interface WaitlistRegistrationRequest {
   mobile: string | null;
   city: string | null;
   track: WaitlistTrack;
+  platform: WaitlistPlatform;
 }
 
 /** Thrown when the form payload cannot be mapped to a valid Modiri request. */
@@ -47,6 +52,8 @@ const ROLE_TO_TRACK: Readonly<Record<ElementaryRole, WaitlistTrack>> = {
   tradesperson: "ARTISAN",
   business: "COMPANY",
 };
+
+const VALID_PLATFORMS: ReadonlySet<WaitlistPlatform> = new Set<WaitlistPlatform>(["IOS", "ANDROID"]);
 
 const SENTINEL_OTHER_CITY = "Other";
 
@@ -67,6 +74,7 @@ export function mapWaitlistRequest(
   const rawCity = asTrimmedString(body.city);
   const rawMobile = asTrimmedString(body.mobile);
   const role = asTrimmedString(body.role);
+  const rawPlatform = asTrimmedString(body.platform).toUpperCase();
 
   const name = [firstName, lastName].filter(Boolean).join(" ");
   if (!name) {
@@ -84,8 +92,16 @@ export function mapWaitlistRequest(
     throw new WaitlistMappingError(`Unknown role: ${role}`);
   }
 
+  if (!rawPlatform) {
+    throw new WaitlistMappingError("Platform is required");
+  }
+  if (!VALID_PLATFORMS.has(rawPlatform as WaitlistPlatform)) {
+    throw new WaitlistMappingError(`Unknown platform: ${rawPlatform}`);
+  }
+  const platform = rawPlatform as WaitlistPlatform;
+
   const mobile = rawMobile || null;
   const city = !rawCity || rawCity === SENTINEL_OTHER_CITY ? null : rawCity;
 
-  return { name, email, mobile, city, track };
+  return { name, email, mobile, city, track, platform };
 }

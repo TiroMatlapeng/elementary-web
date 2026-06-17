@@ -3,5 +3,6 @@
   "email": "lerato.mokoena@example.co.za",
   "mobile": "+27821234567",
   "city": "Johannesburg",
-  "track": "HOMEOWNER"
+  "track": "HOMEOWNER",
+  "platform": "IOS"
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 type Role = "homeowner" | "tradesperson" | "business";
+type Platform = "IOS" | "ANDROID";
 
 interface FormState {
   firstName: string;
@@ -11,6 +12,7 @@ interface FormState {
   email: string;
   city: string;
   role: Role | "";
+  platform: Platform | "";
 }
 
 const CITIES = [
@@ -20,6 +22,19 @@ const CITIES = [
   "Durban",
   "Other",
 ] as const;
+
+const PLATFORMS: { value: Platform; label: string; description: string }[] = [
+  {
+    value: "IOS",
+    label: "iPhone",
+    description: "I use an Apple iPhone",
+  },
+  {
+    value: "ANDROID",
+    label: "Android",
+    description: "I use a Samsung, Huawei, or other Android phone",
+  },
+];
 
 const ROLES: { value: Role; label: string; description: string }[] = [
   {
@@ -59,6 +74,7 @@ export function WaitlistForm() {
     email: "",
     city: "",
     role: "",
+    platform: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -367,6 +383,73 @@ export function WaitlistForm() {
                   style={{ color: "var(--color-text-muted)" }}
                 >
                   {r.description}
+                </span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      {/* Platform */}
+      <fieldset className="flex flex-col gap-2">
+        <legend
+          className="text-xs font-medium mb-1"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          Which phone do you have?
+        </legend>
+        <div className="flex flex-col gap-2">
+          {PLATFORMS.map((p) => (
+            <label
+              key={p.value}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer border transition-colors duration-150"
+              style={{
+                background:
+                  form.platform === p.value
+                    ? "var(--color-accent-dim)"
+                    : "var(--color-surface)",
+                borderColor:
+                  form.platform === p.value
+                    ? "var(--color-accent)"
+                    : "var(--color-border)",
+              }}
+            >
+              <input
+                type="radio"
+                name="platform"
+                value={p.value}
+                checked={form.platform === p.value}
+                onChange={handleChange}
+                className="sr-only"
+              />
+              <span
+                className="flex-shrink-0 w-4 h-4 rounded-full border-2 flex items-center justify-center"
+                style={{
+                  borderColor:
+                    form.platform === p.value
+                      ? "var(--color-accent)"
+                      : "var(--color-border-hover)",
+                }}
+              >
+                {form.platform === p.value && (
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: "var(--color-accent)" }}
+                  />
+                )}
+              </span>
+              <span>
+                <span
+                  className="block text-sm font-medium"
+                  style={{ color: "var(--color-text-primary)" }}
+                >
+                  {p.label}
+                </span>
+                <span
+                  className="block text-xs"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  {p.description}
                 </span>
               </span>
             </label>
