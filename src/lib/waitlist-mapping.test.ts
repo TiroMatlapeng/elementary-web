@@ -27,6 +27,7 @@ test("maps the canonical homeowner payload byte-equal to the fixture", () => {
     email: "lerato.mokoena@example.co.za",
     city: "Johannesburg",
     role: "homeowner",
+    platform: "ANDROID",
   });
   assert.deepEqual(result, canonicalFixture);
 });
@@ -39,6 +40,7 @@ test("role tradesperson maps to ARTISAN", () => {
     email: "thabo@example.co.za",
     city: "Pretoria",
     role: "tradesperson",
+    platform: "ANDROID",
   });
   assert.equal(result.track, "ARTISAN");
 });
@@ -51,6 +53,7 @@ test("role business maps to COMPANY", () => {
     email: "ops@acme.co.za",
     city: "Durban",
     role: "business",
+    platform: "ANDROID",
   });
   assert.equal(result.track, "COMPANY");
 });
@@ -63,6 +66,7 @@ test("city 'Other' becomes null", () => {
     email: "sipho@example.co.za",
     city: "Other",
     role: "homeowner",
+    platform: "ANDROID",
   });
   assert.equal(result.city, null);
 });
@@ -75,6 +79,7 @@ test("empty / missing city becomes null", () => {
     email: "sipho@example.co.za",
     city: "",
     role: "homeowner",
+    platform: "ANDROID",
   });
   assert.equal(result.city, null);
 });
@@ -87,6 +92,7 @@ test("empty mobile becomes null", () => {
     email: "naledi@example.co.za",
     city: "Cape Town",
     role: "homeowner",
+    platform: "ANDROID",
   });
   assert.equal(result.mobile, null);
 });
@@ -99,6 +105,7 @@ test("name is first + last joined with a single space", () => {
     email: "lerato.mokoena@example.co.za",
     city: "Johannesburg",
     role: "homeowner",
+    platform: "ANDROID",
   });
   assert.equal(result.name, "Lerato Mokoena");
 });
@@ -111,6 +118,7 @@ test("missing last name still yields a non-padded name", () => {
     email: "lerato@example.co.za",
     city: "Johannesburg",
     role: "homeowner",
+    platform: "ANDROID",
   });
   assert.equal(result.name, "Lerato");
 });
@@ -139,7 +147,37 @@ test("missing email throws WaitlistMappingError", () => {
         mobile: "+27820000000",
         city: "Johannesburg",
         role: "homeowner",
+        platform: "ANDROID",
       }),
     WaitlistMappingError
   );
+});
+
+const validInput = {
+  firstName: "Lerato",
+  lastName: "Mokoena",
+  mobile: "+27821234567",
+  email: "lerato.mokoena@example.co.za",
+  city: "Johannesburg",
+  role: "homeowner",
+  platform: "ANDROID",
+};
+
+test("throws when platform is missing", () => {
+  assert.throws(
+    () => mapWaitlistRequest({ ...validInput, platform: undefined }),
+    WaitlistMappingError
+  );
+});
+
+test("throws when platform is not IOS or ANDROID", () => {
+  assert.throws(
+    () => mapWaitlistRequest({ ...validInput, platform: "WINDOWS" }),
+    WaitlistMappingError
+  );
+});
+
+test("maps platform IOS through unchanged", () => {
+  const result = mapWaitlistRequest({ ...validInput, platform: "IOS" });
+  assert.equal(result.platform, "IOS");
 });

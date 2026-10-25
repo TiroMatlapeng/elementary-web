@@ -15,6 +15,9 @@ export type ElementaryRole = "homeowner" | "tradesperson" | "business";
 /** The canonical Modiri waitlist track enum (only the three a website can send). */
 export type WaitlistTrack = "HOMEOWNER" | "ARTISAN" | "COMPANY";
 
+/** The device platforms the Modiri backend accepts. */
+export type WaitlistPlatform = "IOS" | "ANDROID";
+
 /** Raw, untrusted body shape posted by the form. All fields optional/unknown. */
 export interface ElementaryWaitlistBody {
   firstName?: unknown;
@@ -23,6 +26,7 @@ export interface ElementaryWaitlistBody {
   email?: unknown;
   city?: unknown;
   role?: unknown;
+  platform?: unknown;
 }
 
 /** The body sent on the wire to POST /api/v1/waitlist. Matches the fixture exactly. */
@@ -32,6 +36,7 @@ export interface WaitlistRegistrationRequest {
   mobile: string | null;
   city: string | null;
   track: WaitlistTrack;
+  platform: WaitlistPlatform;
 }
 
 /** Thrown when the form payload cannot be mapped to a valid Modiri request. */
@@ -47,6 +52,8 @@ const ROLE_TO_TRACK: Readonly<Record<ElementaryRole, WaitlistTrack>> = {
   tradesperson: "ARTISAN",
   business: "COMPANY",
 };
+
+const PLATFORMS: readonly WaitlistPlatform[] = ["IOS", "ANDROID"];
 
 const SENTINEL_OTHER_CITY = "Other";
 
@@ -67,6 +74,7 @@ export function mapWaitlistRequest(
   const rawCity = asTrimmedString(body.city);
   const rawMobile = asTrimmedString(body.mobile);
   const role = asTrimmedString(body.role);
+  const platform = asTrimmedString(body.platform);
 
   const name = [firstName, lastName].filter(Boolean).join(" ");
   if (!name) {
@@ -79,6 +87,13 @@ export function mapWaitlistRequest(
     throw new WaitlistMappingError("Role is required");
   }
 
+  if (!platform) {
+    throw new WaitlistMappingError("Device platform is required");
+  }
+  if (!PLATFORMS.includes(platform as WaitlistPlatform)) {
+    throw new WaitlistMappingError(`Unknown platform: ${platform}`);
+  }
+
   const track = ROLE_TO_TRACK[role as ElementaryRole];
   if (!track) {
     throw new WaitlistMappingError(`Unknown role: ${role}`);
@@ -87,5 +102,5 @@ export function mapWaitlistRequest(
   const mobile = rawMobile || null;
   const city = !rawCity || rawCity === SENTINEL_OTHER_CITY ? null : rawCity;
 
-  return { name, email, mobile, city, track };
+  return { name, email, mobile, city, track, platform: platform as WaitlistPlatform };
 }
