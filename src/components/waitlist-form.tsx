@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 type Role = "homeowner" | "tradesperson" | "business";
+type Platform = "IOS" | "ANDROID";
 
 interface FormState {
   firstName: string;
@@ -11,7 +12,20 @@ interface FormState {
   email: string;
   city: string;
   role: Role | "";
+  platform: Platform | "";
+  // Client-side gate only — never sent to the backend (it has no such field).
+  googleEmailConfirmed: boolean;
 }
+
+const APPLE_PATH =
+  "M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26 2 49.9-11.4 69.5-34.3z";
+const ANDROID_PATH =
+  "M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.03-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z";
+
+const PLATFORMS: { value: Platform; label: string; viewBox: string; path: string }[] = [
+  { value: "IOS", label: "iPhone", viewBox: "0 0 384 512", path: APPLE_PATH },
+  { value: "ANDROID", label: "Android", viewBox: "0 0 24 24", path: ANDROID_PATH },
+];
 
 const CITIES = [
   "Johannesburg",
@@ -59,6 +73,8 @@ export function WaitlistForm() {
     email: "",
     city: "",
     role: "",
+    platform: "",
+    googleEmailConfirmed: false,
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -75,11 +91,32 @@ export function WaitlistForm() {
     e.preventDefault();
     setSubmitting(true);
     setError(null);
+    if (!form.platform) {
+      setError("Please choose iPhone or Android so we know where to send your invite.");
+      setSubmitting(false);
+      return;
+    }
+    if (form.platform === "ANDROID" && !form.googleEmailConfirmed) {
+      setError(
+        "Please confirm the email you entered is the one on your Google Play account, then submit again."
+      );
+      setSubmitting(false);
+      return;
+    }
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        // googleEmailConfirmed is a client-side gate; the backend has no field for it.
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          mobile: form.mobile,
+          email: form.email,
+          city: form.city,
+          role: form.role,
+          platform: form.platform,
+        }),
       });
       if (!res.ok) {
         // Surface a server-provided message when present, else a generic one.
@@ -104,7 +141,7 @@ export function WaitlistForm() {
 
   if (success) {
     const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
-    const waText = encodeURIComponent("Hi, I just registered my interest in Modiri!");
+    const waText = encodeURIComponent("Hi, I just requested a Modiri test invite!");
     const waLink = `https://wa.me/${waNumber}?text=${waText}`;
 
     return (
@@ -125,7 +162,7 @@ export function WaitlistForm() {
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="var(--color-ink)"
+            stroke="var(--color-base)"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -138,10 +175,13 @@ export function WaitlistForm() {
             className="text-lg font-semibold"
             style={{ fontFamily: "var(--font-display)", color: "var(--color-ink)" }}
           >
-            You&apos;re on the list!
+            Invite requested!
           </p>
           <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
-            We&apos;ll reach out via WhatsApp when Modiri launches near you.
+            We review signups daily and send invites in batches.{" "}
+            {form.platform === "IOS"
+              ? "Watch for a TestFlight invite from Apple."
+              : "Watch your Google Play email for the test invite."}
           </p>
         </div>
         {waNumber && (
@@ -164,6 +204,75 @@ export function WaitlistForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {/* Device selector */}
+      <fieldset className="flex flex-col gap-2">
+        <legend
+          className="text-xs font-semibold uppercase tracking-wider mb-1"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          Which phone do you have? *
+        </legend>
+        <div className="flex gap-2.5">
+          {PLATFORMS.map((p) => {
+            const on = form.platform === p.value;
+            return (
+              <label
+                key={p.value}
+                className="flex-1 flex flex-col items-center gap-2 px-3 py-3.5 rounded-lg cursor-pointer text-sm font-semibold transition-colors duration-150"
+                style={{
+                  border: `1.5px solid ${on ? "var(--color-accent)" : "var(--color-border-hover)"}`,
+                  background: on ? "var(--color-accent-dim)" : "transparent",
+                  color: on ? "var(--color-ink)" : "var(--color-text-secondary)",
+                }}
+              >
+                <input
+                  type="radio"
+                  name="platform"
+                  value={p.value}
+                  checked={on}
+                  onChange={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      platform: p.value,
+                      googleEmailConfirmed: false,
+                    }))
+                  }
+                  className="sr-only"
+                />
+                <svg width="22" height="22" viewBox={p.viewBox} fill="currentColor" aria-hidden="true">
+                  <path d={p.path} />
+                </svg>
+                {p.label}
+              </label>
+            );
+          })}
+        </div>
+        {form.platform === "ANDROID" && (
+          <div
+            className="flex flex-col gap-2.5 rounded-lg px-3 py-3 text-xs"
+            style={{ background: "var(--color-accent-dim)", color: "var(--color-accent)" }}
+          >
+            <p>
+              Use the <b>email on your Google Play account</b>{" "}
+              — that&apos;s where the invite goes.
+            </p>
+            <label className="flex items-start gap-2 cursor-pointer" style={{ color: "var(--color-ink)" }}>
+              <input
+                type="checkbox"
+                name="googleEmailConfirmed"
+                checked={form.googleEmailConfirmed}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, googleEmailConfirmed: e.target.checked }))
+                }
+                className="mt-0.5"
+                style={{ accentColor: "var(--color-accent)" }}
+              />
+              <span>The email I enter below is the one on my Google Play account.</span>
+            </label>
+          </div>
+        )}
+      </fieldset>
+
       {/* Name row */}
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1.5">
@@ -172,7 +281,7 @@ export function WaitlistForm() {
             className="text-xs font-medium"
             style={{ color: "var(--color-text-secondary)" }}
           >
-            First name
+            First name *
           </label>
           <input
             id="wl-firstName"
@@ -181,6 +290,7 @@ export function WaitlistForm() {
             value={form.firstName}
             onChange={handleChange}
             placeholder="Thabo"
+            required
             style={INPUT_STYLE}
             onFocus={(e) =>
               (e.currentTarget.style.borderColor = "var(--color-accent)")
@@ -255,7 +365,7 @@ export function WaitlistForm() {
           className="text-xs font-medium"
           style={{ color: "var(--color-text-secondary)" }}
         >
-          Email address
+          Email address *
         </label>
         <input
           id="wl-email"
@@ -264,6 +374,7 @@ export function WaitlistForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="you@example.com"
+          required
           style={INPUT_STYLE}
           onFocus={(e) =>
             (e.currentTarget.style.borderColor = "var(--color-accent)")
@@ -379,7 +490,7 @@ export function WaitlistForm() {
           role="alert"
           aria-live="assertive"
           className="text-sm text-center"
-          style={{ color: "#f87171" }}
+          style={{ color: "#b42318" }}
         >
           {error}
         </p>
@@ -391,19 +502,20 @@ export function WaitlistForm() {
         className="mt-1 py-3 rounded-lg text-sm font-semibold transition-opacity duration-200"
         style={{
           background: "var(--color-accent)",
-          color: "#0a0a0b",
+          color: "var(--color-base)",
           opacity: submitting ? 0.6 : 1,
         }}
       >
-        {submitting ? "Joining…" : "Join the waitlist"}
+        {submitting ? "Sending…" : "Request my test invite"}
       </button>
 
       <p
         className="text-xs text-center leading-relaxed"
         style={{ color: "var(--color-text-muted)" }}
       >
-        We&apos;ll reach out via WhatsApp when Modiri launches in your area.
-        No spam. POPIA compliant.
+        iPhone: a TestFlight invite from Apple. Android: a Google Play test invite
+        by email. We review signups daily. Used only to send your invite. POPIA
+        compliant.
       </p>
     </form>
   );
