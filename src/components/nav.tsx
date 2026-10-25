@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
-  { label: "Ventures", href: "#products" },
+  { label: "Ventures", href: "#ventures" },
   { label: "Modiri", href: "/modiri" },
 ];
 
