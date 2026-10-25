@@ -5,9 +5,8 @@ import Link from "next/link";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
-  { label: "Products", href: "#products" },
+  { label: "Ventures", href: "#products" },
   { label: "Modiri", href: "/modiri" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Nav() {
@@ -29,7 +28,7 @@ export default function Nav() {
         left: 0,
         right: 0,
         zIndex: 100,
-        background: scrolled ? "rgba(248,247,244,0.95)" : "var(--color-base)",
+        background: scrolled ? "rgba(244,241,234,0.92)" : "var(--color-base)",
         borderBottom: scrolled
           ? "1px solid var(--color-border)"
           : "1px solid transparent",
@@ -49,29 +48,18 @@ export default function Nav() {
           height: "62px",
         }}
       >
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}>
-          <span
-            aria-hidden="true"
-            style={{
-              width: "9px", height: "9px",
-              background: "var(--color-accent)",
-              borderRadius: "1px", transform: "rotate(45deg)",
-              flexShrink: 0, display: "block",
-            }}
-          />
-          <span style={{ fontFamily: "var(--font-display)", fontSize: "17px", fontWeight: 800, color: "var(--color-ink)", letterSpacing: "0.01em" }}>
-            Elementary
-          </span>
+        <Link href="/" style={{ textDecoration: "none", fontFamily: "var(--font-display)", fontSize: "20px", fontWeight: 600, letterSpacing: "-0.01em", color: "var(--color-ink)" }}>
+          Elementary<span style={{ color: "var(--color-accent)" }}>.</span>
         </Link>
 
-        <nav className="hidden md:flex" style={{ gap: "32px" }} aria-label="Primary">
+        <nav className="hidden md:flex" style={{ gap: "26px", marginLeft: "auto", marginRight: "30px" }} aria-label="Primary">
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={label}
               href={href}
-              style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-text-muted)", textDecoration: "none", transition: "color 0.2s" }}
+              style={{ fontSize: "13.5px", fontWeight: 500, color: "var(--color-text-secondary)", textDecoration: "none", transition: "color 0.2s" }}
               onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--color-ink)")}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--color-text-muted)")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--color-text-secondary)")}
             >
               {label}
             </Link>
@@ -82,19 +70,18 @@ export default function Nav() {
           <Link
             href="#contact"
             style={{
-              background: "var(--color-ink)", color: "var(--color-accent)",
-              fontFamily: "var(--font-display)", fontSize: "12px", fontWeight: 700,
-              padding: "9px 20px", borderRadius: "3px", textDecoration: "none",
-              letterSpacing: "0.04em", textTransform: "uppercase" as const, transition: "opacity 0.2s",
+              background: "var(--color-ink)", color: "var(--color-base)",
+              fontFamily: "var(--font-body)", fontSize: "13px", fontWeight: 600,
+              padding: "9px 18px", borderRadius: "4px", textDecoration: "none",
             }}
           >
-            Get Started
+            Get in touch
           </Link>
         </div>
 
         <button
-          className="md:hidden"
-          style={{ display: "flex", flexDirection: "column" as const, justifyContent: "center", alignItems: "center", gap: "5px", width: "36px", height: "36px", background: "none", border: "none", cursor: "pointer", color: "var(--color-text-muted)" }}
+          className="flex md:hidden"
+          style={{ flexDirection: "column" as const, justifyContent: "center", alignItems: "center", gap: "5px", width: "36px", height: "36px", background: "none", border: "none", cursor: "pointer", color: "var(--color-text-muted)" }}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((p) => !p)}
@@ -115,7 +102,7 @@ export default function Nav() {
 
       <div
         className="md:hidden"
-        style={{ overflow: "hidden", maxHeight: menuOpen ? "320px" : "0", opacity: menuOpen ? 1 : 0, transition: "max-height 0.3s ease, opacity 0.3s ease" }}
+        style={{ overflow: "hidden", maxHeight: menuOpen ? "400px" : "0", opacity: menuOpen ? 1 : 0, transition: "max-height 0.3s ease, opacity 0.3s ease" }}
         aria-hidden={!menuOpen}
       >
         <nav style={{ display: "flex", flexDirection: "column" as const, padding: "0 32px 24px", borderTop: "1px solid var(--color-border)" }}>
@@ -132,9 +119,9 @@ export default function Nav() {
           <Link
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            style={{ marginTop: "16px", background: "var(--color-ink)", color: "var(--color-accent)", fontFamily: "var(--font-display)", fontSize: "13px", fontWeight: 700, padding: "12px 20px", borderRadius: "3px", textDecoration: "none", textAlign: "center" as const, letterSpacing: "0.04em", textTransform: "uppercase" as const }}
+            style={{ marginTop: "16px", background: "var(--color-ink)", color: "var(--color-base)", fontFamily: "var(--font-body)", fontSize: "14px", fontWeight: 600, padding: "12px 20px", borderRadius: "4px", textDecoration: "none", textAlign: "center" as const }}
           >
-            Get Started
+            Get in touch
           </Link>
         </nav>
       </div>
