@@ -16,30 +16,27 @@ export function TechStack() {
       <div style={{ maxWidth: "var(--width-content)", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "48px", alignItems: "start" }}>
         <SectionReveal delay={0}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
-                03 / HOW WE BUILD
-              </span>
-              <span style={{ flex: 1, height: "1px", background: "var(--color-border)", display: "block" }} />
+            <div style={{ fontFamily: "var(--font-ed)", fontSize: "12.5px", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-accent)", marginBottom: "14px" }}>
+              How we build
             </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 900, letterSpacing: "-0.01em", color: "var(--color-ink)", lineHeight: 1.05, marginBottom: "16px" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 600, letterSpacing: "-0.01em", color: "var(--color-ink)", lineHeight: 1.05, marginBottom: "16px" }}>
               Serious engineers.{" "}
-              <em style={{ fontStyle: "italic", color: "var(--color-text-muted)" }}>Proven stack.</em>
+              <em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--color-accent)" }}>Proven stack.</em>
             </h2>
-            <p style={{ fontSize: "13px", lineHeight: 1.75, color: "var(--color-text-secondary)", maxWidth: "340px" }}>
+            <p style={{ fontFamily: "var(--font-ed)", fontSize: "16.5px", lineHeight: 1.7, color: "var(--color-text-secondary)", maxWidth: "360px" }}>
               We choose tools for production, not portfolios. Every technology has real delivery behind it — from core banking integrations to high-throughput data pipelines.
             </p>
           </div>
         </SectionReveal>
 
         <SectionReveal delay={1}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {TECH_PILLS.map((tech) => (
               <span
                 key={tech}
-                style={{ display: "inline-block", border: "1px solid var(--color-border)", borderRadius: "2px", padding: "6px 12px", fontSize: "11px", fontWeight: 500, color: "var(--color-ink)", background: "var(--color-base)", transition: "all 0.2s", cursor: "default" }}
-                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-ink)"; el.style.background = "var(--color-ink)"; el.style.color = "var(--color-accent)"; }}
-                onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-border)"; el.style.background = "var(--color-base)"; el.style.color = "var(--color-ink)"; }}
+                style={{ display: "inline-block", border: "1px solid var(--color-border)", borderRadius: "999px", padding: "7px 14px", fontSize: "13px", fontWeight: 500, color: "var(--color-text-secondary)", background: "var(--color-base)", transition: "all 0.2s", cursor: "default" }}
+                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-ink)"; el.style.background = "var(--color-ink)"; el.style.color = "var(--color-light)"; }}
+                onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-border)"; el.style.background = "var(--color-base)"; el.style.color = "var(--color-text-secondary)"; }}
               >
                 {tech}
               </span>

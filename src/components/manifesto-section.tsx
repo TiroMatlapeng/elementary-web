@@ -1,5 +1,4 @@
 import { SectionReveal } from "./section-reveal";
-import { DiagonalCut } from "./diagonal-cut";
 
 const BELIEFS = [
   {
@@ -11,52 +10,46 @@ const BELIEFS = [
     body: "We do not use frameworks because they are popular. We do not ship MVPs that embarrass the people who commissioned them.",
   },
   {
-    conviction: "South Africa has enough software designed for somewhere else.",
-    body: "We build for here, from here. The infrastructure, the constraints, the users — we know them.",
+    conviction: "Enough software is designed for somewhere else.",
+    body: "We build for South Africa, from South Africa. The infrastructure, the constraints, the users — we know them.",
   },
 ] as const;
 
 export function ManifestoSection() {
   return (
-    <>
-      <DiagonalCut from="var(--color-base)" to="var(--color-violet)" slope="left" />
-
-      <section style={{ background: "var(--color-violet)", padding: "72px 32px 56px" }}>
-        <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
-          <SectionReveal delay={0}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "32px" }}>
-              <span style={{ width: "16px", height: "1px", background: "var(--color-accent)", display: "block", flexShrink: 0 }} />
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(201,241,53,0.5)" }}>
-                What we believe
-              </span>
-            </div>
-          </SectionReveal>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px" }}>
-            {BELIEFS.map(({ conviction, body }, i) => (
-              <SectionReveal key={conviction} delay={i + 1}>
-                <div>
-                  <div style={{ height: "2px", background: "rgba(255,255,255,0.08)", marginBottom: "20px" }} />
-                  <p style={{ fontSize: "13px", lineHeight: 1.8, color: "rgba(240,234,250,0.65)" }}>
-                    <strong style={{ color: "#f0eafa", fontWeight: 700 }}>{conviction}</strong>{" "}{body}
-                  </p>
-                </div>
-              </SectionReveal>
-            ))}
+    <section style={{ background: "var(--color-elevated)", padding: "72px 32px", borderTop: "1px solid var(--color-border)" }}>
+      <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
+        <SectionReveal delay={0}>
+          <div style={{ fontFamily: "var(--font-ed)", fontSize: "12.5px", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-accent)", marginBottom: "32px" }}>
+            What we believe
           </div>
+        </SectionReveal>
 
-          <div style={{ marginTop: "48px", paddingTop: "20px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(201,241,53,0.35)" }}>
-              Elementary · ZA · Est. 2024
-            </span>
-            <a href="#about" style={{ fontSize: "12px", color: "rgba(240,234,250,0.3)", textDecoration: "none" }}>
-              Read our full approach →
-            </a>
-          </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px" }}>
+          {BELIEFS.map(({ conviction, body }, i) => (
+            <SectionReveal key={conviction} delay={i + 1}>
+              <div>
+                <div style={{ height: "1px", background: "var(--color-border)", marginBottom: "20px" }} />
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "21px", fontWeight: 600, color: "var(--color-ink)", lineHeight: 1.15, marginBottom: "12px", letterSpacing: "-0.005em" }}>
+                  {conviction}
+                </h3>
+                <p style={{ fontSize: "14.5px", lineHeight: 1.7, color: "var(--color-text-secondary)" }}>
+                  {body}
+                </p>
+              </div>
+            </SectionReveal>
+          ))}
         </div>
-      </section>
 
-      <DiagonalCut from="var(--color-violet)" to="var(--color-base)" slope="right" />
-    </>
+        <div style={{ marginTop: "48px", paddingTop: "20px", borderTop: "1px solid var(--color-border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+          <span style={{ fontFamily: "var(--font-ed)", fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
+            Elementary · ZA · Est. 2024
+          </span>
+          <a href="#about" style={{ fontSize: "13.5px", fontWeight: 600, color: "var(--color-accent)", textDecoration: "underline", textUnderlineOffset: "5px" }}>
+            Read our full approach →
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }

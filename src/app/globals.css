@@ -36,8 +36,6 @@
   --font-display: var(--font-fraunces), serif;
   --font-body: var(--font-dm-sans), sans-serif;
   --font-ed: var(--font-spectral), serif;
-  /* TEMP alias: hero/footer/etc. still use mono; removed when they are restyled */
-  --font-mono: var(--font-spectral), serif;
 
   /* Radii */
   --radius-sm: 2px;
@@ -71,5 +69,12 @@ body {
   transform: translateY(0);
 }
 
-/* Service card hover */
-.service-card:hover { background: #ebe7dd !important; }
+/* Services — numbered hairline grid (Direction B). Fixed columns so the 6
+   items always fill cleanly; 3/2/1 are all divisors of 6, no empty cells. */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+}
+@media (max-width: 860px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .svc-grid { grid-template-columns: 1fr; } }
