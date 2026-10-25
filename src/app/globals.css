@@ -2,36 +2,42 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces */
-  --color-base: #f8f7f4;
-  --color-surface: #f0ede6;
-  --color-elevated: #e8e4db;
-  --color-violet: #100a1e;
-  --color-violet-mid: #18103a;
+  /* Surfaces — Direction B: bone / ink */
+  --color-base: #f4f1ea;
+  --color-surface: #ebe7dd;
+  --color-elevated: #e2ddd0;
+  /* Dark surfaces: names kept for existing components, values are now ink */
+  --color-violet: #19181b;
+  --color-violet-mid: #252428;
 
   /* Text */
-  --color-light: #f8f7f4;
-  --color-ink: #0f0a20;
-  --color-text-primary: #0f0a20;
-  --color-text-secondary: #555555;
-  --color-text-muted: #888888;
-  --color-text-on-violet: #f0eafa;
+  --color-light: #f4f1ea;
+  --color-ink: #19181b;
+  --color-text-primary: #19181b;
+  --color-text-secondary: #4a4850;
+  --color-text-muted: #7a7780;
+  --color-text-on-violet: #f4f1ea;
 
-  /* Accent — acid yellow */
-  --color-accent: #c9f135;
-  --color-accent-light: #d6f55c;
-  --color-accent-dim: rgba(201, 241, 53, 0.12);
-  --color-accent-glow: rgba(201, 241, 53, 0.22);
+  /* Accent — bottle green (primary) */
+  --color-accent: #1e5a43;
+  --color-accent-light: #2a7458;
+  --color-accent-dim: rgba(30, 90, 67, 0.1);
+  --color-accent-glow: rgba(30, 90, 67, 0.2);
+
+  /* Secondary — navy */
+  --color-secondary: #1f2a52;
 
   /* Borders */
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-border-hover: rgba(0, 0, 0, 0.15);
-  --color-border-violet: rgba(255, 255, 255, 0.07);
+  --color-border: rgba(25, 24, 27, 0.1);
+  --color-border-hover: rgba(25, 24, 27, 0.2);
+  --color-border-violet: rgba(244, 241, 234, 0.08);
 
-  /* Fonts */
-  --font-display: "Barlow Condensed", sans-serif;
-  --font-body: "DM Sans", sans-serif;
-  --font-mono: "DM Mono", monospace;
+  /* Fonts (next/font variables set in layout.tsx) */
+  --font-display: var(--font-fraunces), serif;
+  --font-body: var(--font-dm-sans), sans-serif;
+  --font-ed: var(--font-spectral), serif;
+  /* TEMP alias: hero/footer/etc. still use mono; removed when they are restyled */
+  --font-mono: var(--font-spectral), serif;
 
   /* Radii */
   --radius-sm: 2px;
@@ -66,4 +72,4 @@ body {
 }
 
 /* Service card hover */
-.service-card:hover { background: #f0eefa !important; }
+.service-card:hover { background: #ebe7dd !important; }
