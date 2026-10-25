@@ -37,8 +37,9 @@ export function Ventures() {
 
         <ul style={{ listStyle: "none", margin: "44px 0 0", padding: 0, borderTop: "1px solid var(--color-border)" }}>
           {VENTURES.map(({ name, description, tier }, i) => (
-            <SectionReveal key={name} delay={i + 3}>
-              <li style={{ display: "flex", alignItems: "center", gap: "26px", padding: "26px 4px", borderBottom: "1px solid var(--color-border)" }}>
+            <li key={name} style={{ borderBottom: "1px solid var(--color-border)" }}>
+              <SectionReveal delay={i + 3}>
+                <div style={{ display: "flex", alignItems: "center", gap: "26px", padding: "26px 4px" }}>
                 <span className="venture-num" style={{ fontFamily: "var(--font-ed)", fontSize: "13px", color: "var(--color-text-muted)", minWidth: "22px" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -53,8 +54,9 @@ export function Ventures() {
                 <span style={{ ...CHIP[tier].style, fontSize: "11.5px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "6px 13px", borderRadius: "999px", whiteSpace: "nowrap" }}>
                   {CHIP[tier].label}
                 </span>
-              </li>
-            </SectionReveal>
+                </div>
+              </SectionReveal>
+            </li>
           ))}
         </ul>
       </div>

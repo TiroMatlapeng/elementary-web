@@ -351,6 +351,7 @@ export default function ModiriPage() {
       <section
         id="waitlist"
         style={{
+          scrollMarginTop: "72px",
           padding: "72px 32px",
           background: "var(--color-base)",
           borderTop: "1px solid var(--color-border)",

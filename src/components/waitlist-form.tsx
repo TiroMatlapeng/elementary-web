@@ -218,7 +218,7 @@ export function WaitlistForm() {
             return (
               <label
                 key={p.value}
-                className="flex-1 flex flex-col items-center gap-2 px-3 py-3.5 rounded-lg cursor-pointer text-sm font-semibold transition-colors duration-150"
+                className="flex-1 flex flex-col items-center gap-2 px-3 py-3.5 rounded-lg cursor-pointer text-sm font-semibold transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--color-accent)]"
                 style={{
                   border: `1.5px solid ${on ? "var(--color-accent)" : "var(--color-border-hover)"}`,
                   background: on ? "var(--color-accent-dim)" : "transparent",

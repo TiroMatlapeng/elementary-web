@@ -34,7 +34,7 @@ export function TechStack() {
             {TECH_PILLS.map((tech) => (
               <span
                 key={tech}
-                style={{ display: "inline-block", border: "1px solid var(--color-border)", borderRadius: "999px", padding: "7px 14px", fontSize: "13px", fontWeight: 500, color: "var(--color-text-secondary)", background: "var(--color-base)", transition: "all 0.2s", cursor: "default" }}
+                style={{ display: "inline-block", border: "1px solid var(--color-border)", borderRadius: "3px", padding: "7px 14px", fontSize: "13px", fontWeight: 500, color: "var(--color-text-secondary)", background: "var(--color-base)", transition: "all 0.2s", cursor: "default" }}
                 onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-ink)"; el.style.background = "var(--color-ink)"; el.style.color = "var(--color-light)"; }}
                 onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "var(--color-border)"; el.style.background = "var(--color-base)"; el.style.color = "var(--color-text-secondary)"; }}
               >
