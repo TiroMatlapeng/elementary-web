@@ -27,7 +27,7 @@ test("maps the canonical homeowner payload byte-equal to the fixture", () => {
     email: "lerato.mokoena@example.co.za",
     city: "Johannesburg",
     role: "homeowner",
-    platform: "ANDROID",
+    platform: "IOS",
   });
   assert.deepEqual(result, canonicalFixture);
 });
