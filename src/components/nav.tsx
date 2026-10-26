@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Ventures", href: "#ventures" },
+  { label: "Services", href: "/#services" },
+  { label: "Ventures", href: "/#ventures" },
   { label: "Modiri", href: "/modiri" },
 ];
 
@@ -68,7 +68,7 @@ export default function Nav() {
 
         <div className="hidden md:flex">
           <Link
-            href="#contact"
+            href="/#contact"
             style={{
               background: "var(--color-ink)", color: "var(--color-base)",
               fontFamily: "var(--font-body)", fontSize: "13px", fontWeight: 600,
@@ -117,7 +117,7 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href="#contact"
+            href="/#contact"
             onClick={() => setMenuOpen(false)}
             style={{ marginTop: "16px", background: "var(--color-ink)", color: "var(--color-base)", fontFamily: "var(--font-body)", fontSize: "14px", fontWeight: 600, padding: "12px 20px", borderRadius: "4px", textDecoration: "none", textAlign: "center" as const }}
           >
