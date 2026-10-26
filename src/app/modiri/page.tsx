@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { SectionReveal } from "@/components/section-reveal";
-import { DicksonLogo } from "@/components/dickson-logo";
 import { WaitlistForm } from "@/components/waitlist-form";
 
 export const metadata: Metadata = {
@@ -179,9 +179,16 @@ export default function ModiriPage() {
           }}
         >
           <SectionReveal delay={0}>
-            {/* Bone mark on navy — a logo, not green text. */}
-            <span style={{ color: "#f4f5fa", display: "inline-block", marginBottom: "28px" }}>
-              <DicksonLogo className="w-11 h-14" />
+            {/* The Modiri badge mark, rendered bone/white on navy. */}
+            <span style={{ display: "inline-block", marginBottom: "28px" }}>
+              <Image
+                src="/modiri-logo.png"
+                alt="Modiri"
+                width={64}
+                height={65}
+                priority
+                style={{ width: "64px", height: "auto", filter: "brightness(0) invert(1)", opacity: 0.96 }}
+              />
             </span>
           </SectionReveal>
 
