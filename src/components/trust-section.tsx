@@ -14,9 +14,9 @@ export function TrustSection() {
         {STATS.map(({ num, suffix, label }, i) => (
           <SectionReveal key={num} delay={i}>
             <div style={{ paddingRight: "32px", paddingLeft: i === 0 ? "0" : "32px", borderRight: i < STATS.length - 1 ? "1px solid var(--color-border)" : "none" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(48px, 6vw, 80px)", fontWeight: 900, lineHeight: 0.9, letterSpacing: "-0.03em", color: "var(--color-ink)", marginBottom: "10px" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(48px, 6vw, 80px)", fontWeight: 600, lineHeight: 0.9, letterSpacing: "-0.03em", color: "var(--color-ink)", marginBottom: "10px" }}>
                 {num}
-                <span style={{ background: "var(--color-ink)", color: "var(--color-accent)", fontSize: "0.45em", padding: "0 4px", borderRadius: "2px", verticalAlign: "super", fontWeight: 800 }}>
+                <span style={{ background: "var(--color-ink)", color: "var(--color-base)", fontSize: "0.45em", padding: "0 4px", borderRadius: "2px", verticalAlign: "super", fontWeight: 600 }}>
                   {suffix}
                 </span>
               </div>

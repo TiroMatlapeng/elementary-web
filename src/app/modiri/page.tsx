@@ -10,113 +10,155 @@ export const metadata: Metadata = {
     "SAPS-checked, referenced, and insured tradespeople who can actually get to you. South Africa's first properly vetted handyman marketplace.",
 };
 
-// ── Feature card data ──────────────────────────────────────────────────────
+// ── Feature data (numbered, Direction B — no icon cards) ─────────────────────
 
 const HOMEOWNER_FEATURES = [
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <polyline points="9 12 11 14 15 10" />
-      </svg>
-    ),
+    num: "01",
     title: "Every worker SAPS vetted",
     body: "Full criminal record checks, verified identity, zero exceptions. You know who is knocking before they knock.",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
+    num: "02",
     title: "Real references, real people",
     body: "Not anonymous star ratings. References from real people who know their work and stand behind it.",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-        <polyline points="9 9 11 11 15 7" />
-      </svg>
-    ),
+    num: "03",
     title: "Insured work",
     body: "Not happy? Get reimbursed. Real money back, not store credit. Accountability is built into the platform.",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
+    num: "04",
     title: "They actually arrive",
     body: "Modiri Van provides transport for workers who need it. No-shows are not acceptable — we remove the barriers that cause them.",
   },
-];
+] as const;
 
 const TRADESPERSON_FEATURES = [
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="2" y="7" width="20" height="14" rx="2" />
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-      </svg>
-    ),
+    num: "01",
     title: "Get work",
     body: "Consistent bookings from verified clients who actually intend to pay. No more chasing ghosts.",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <polyline points="9 12 11 14 15 10" />
-      </svg>
-    ),
+    num: "02",
     title: "Get verified",
     body: "SAPS check + skills vetting + real references = a profile that genuinely stands out and clients trust.",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="1" y="3" width="15" height="13" rx="1" />
-        <path d="M16 8h4l3 5v3h-7V8z" />
-        <circle cx="5.5" cy="18.5" r="2.5" />
-        <circle cx="18.5" cy="18.5" r="2.5" />
-      </svg>
-    ),
+    num: "03",
     title: "Get transport",
     body: "No vehicle? Modiri Van removes the barrier. Distance should not decide who gets work.",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-      </svg>
-    ),
+    num: "04",
     title: "Get dignity",
     body: "We're not building a gig economy. We're building a real economy — where skill is recognised and rewarded.",
   },
-];
+] as const;
 
-// ── Icon wrapper ───────────────────────────────────────────────────────────
+// ── Reusable bits ────────────────────────────────────────────────────────────
 
-function FeatureIcon({ children }: { children: React.ReactNode }) {
+function Kicker({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0"
+    <div
       style={{
-        background: "var(--color-accent-dim)",
+        fontFamily: "var(--font-ed)",
+        fontSize: "12.5px",
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
         color: "var(--color-accent)",
-        border: "1px solid var(--color-accent-glow)",
+        marginBottom: "14px",
       }}
     >
       {children}
-    </span>
+    </div>
+  );
+}
+
+const H2_STYLE: React.CSSProperties = {
+  fontFamily: "var(--font-display)",
+  fontSize: "clamp(28px, 4.5vw, 44px)",
+  fontWeight: 600,
+  letterSpacing: "-0.01em",
+  color: "var(--color-ink)",
+  lineHeight: 1.05,
+  maxWidth: "720px",
+};
+
+const LEDE_STYLE: React.CSSProperties = {
+  fontSize: "16px",
+  lineHeight: 1.7,
+  color: "var(--color-text-secondary)",
+  maxWidth: "640px",
+  marginTop: "18px",
+};
+
+// Numbered hairline grid of features (Direction B). The wrapper background shows
+// through the 1px gaps as hairline rules — no cards, no shadows.
+function FeatureGrid({
+  features,
+  cellBg,
+}: {
+  features: readonly { num: string; title: string; body: string }[];
+  cellBg: string;
+}) {
+  return (
+    <div
+      className="grid grid-cols-1 sm:grid-cols-2 gap-px"
+      style={{
+        background: "var(--color-border)",
+        borderTop: "1px solid var(--color-border)",
+        marginTop: "44px",
+      }}
+    >
+      {features.map(({ num, title, body }, i) => (
+        <SectionReveal key={num} delay={i + 2}>
+          <div
+            style={{
+              background: cellBg,
+              padding: "28px 26px 32px",
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-ed)",
+                fontSize: "13px",
+                color: "var(--color-accent)",
+                marginBottom: "12px",
+              }}
+            >
+              {num}
+            </div>
+            <h3
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "21px",
+                fontWeight: 600,
+                color: "var(--color-ink)",
+                marginBottom: "8px",
+                letterSpacing: "-0.005em",
+              }}
+            >
+              {title}
+            </h3>
+            <p
+              style={{
+                fontSize: "14.5px",
+                lineHeight: 1.6,
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              {body}
+            </p>
+          </div>
+        </SectionReveal>
+      ))}
+    </div>
   );
 }
 
@@ -125,91 +167,113 @@ function FeatureIcon({ children }: { children: React.ReactNode }) {
 export default function ModiriPage() {
   return (
     <main>
-      {/* ── 1. Hero ──────────────────────────────────────────────── */}
+      {/* ── 1. Hero — NAVY band ───────────────────────────────────── */}
       <section
-        className="relative flex flex-col items-center text-center pt-32 pb-20 overflow-hidden"
-        style={{ background: "var(--color-base)" }}
+        style={{ paddingTop: "62px", background: "var(--color-secondary)" }}
       >
-        {/* Subtle radial glow */}
         <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 -top-16"
           style={{
-            width: 640,
-            height: 420,
-            background:
-              "radial-gradient(ellipse at 50% 0%, var(--color-accent-glow) 0%, transparent 70%)",
-            transform: "translateX(-50%)",
+            maxWidth: "var(--width-content)",
+            margin: "0 auto",
+            padding: "78px 32px 82px",
           }}
-        />
-
-        {/* Grid overlay */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)
-            `,
-            backgroundSize: "60px 60px",
-            maskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%)",
-          }}
-        />
-
-        <div
-          className="relative z-10 flex flex-col items-center px-6"
-          style={{ maxWidth: "var(--width-content)" }}
         >
-          {/* Logo mark */}
           <SectionReveal delay={0}>
+            {/* Bone mark on navy — a logo, not green text. */}
+            <span style={{ color: "#f4f5fa", display: "inline-block", marginBottom: "28px" }}>
+              <DicksonLogo className="w-11 h-14" />
+            </span>
+          </SectionReveal>
+
+          {/* Eyebrow — light tint on navy (never green on navy) */}
+          <SectionReveal delay={1}>
             <div
-              className="flex items-center justify-center w-24 h-24 rounded-2xl mb-6"
               style={{
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border-hover)",
+                display: "flex",
+                alignItems: "center",
+                gap: "11px",
+                marginBottom: "22px",
               }}
             >
-              <DicksonLogo className="w-12 h-14 text-accent" />
+              <span
+                style={{
+                  display: "block",
+                  width: "24px",
+                  height: "1px",
+                  background: "#aab6dd",
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "var(--font-ed)",
+                  fontSize: "12.5px",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "#aab6dd",
+                }}
+              >
+                An Elementary venture
+              </span>
             </div>
           </SectionReveal>
 
-          {/* Eyebrow */}
-          <SectionReveal delay={1}>
-            <p
-              className="text-sm font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "var(--color-accent)" }}
-            >
-              An Elementary product
-            </p>
-          </SectionReveal>
-
-          {/* Display heading */}
           <SectionReveal delay={2}>
             <h1
-              className="font-display font-extrabold leading-tight tracking-tight mb-6"
               style={{
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                color: "var(--color-text-primary)",
+                fontFamily: "var(--font-display)",
+                fontWeight: 900,
+                fontSize: "clamp(46px, 8vw, 88px)",
+                lineHeight: 0.98,
+                letterSpacing: "-0.015em",
+                color: "#f4f5fa",
+                maxWidth: "820px",
               }}
             >
-              Modiri
+              Modiri — the one you can{" "}
+              <em style={{ fontStyle: "italic", fontWeight: 400, color: "#aab6dd" }}>
+                use today.
+              </em>
             </h1>
           </SectionReveal>
 
-          {/* Subtitle */}
           <SectionReveal delay={3}>
             <p
-              className="text-lg leading-relaxed max-w-2xl"
-              style={{ color: "var(--color-text-secondary)" }}
+              style={{
+                fontFamily: "var(--font-ed)",
+                fontSize: "19px",
+                lineHeight: 1.75,
+                color: "#c3cbe6",
+                maxWidth: "560px",
+                marginTop: "26px",
+              }}
             >
               South Africa&apos;s first properly vetted handyman marketplace.
               SAPS-checked, referenced, insured — and they can actually get to
-              you.
+              you. It&apos;s in beta right now, and we&apos;re looking for
+              testers.
             </p>
+          </SectionReveal>
+
+          <SectionReveal delay={4}>
+            <div style={{ marginTop: "32px" }}>
+              <Link
+                href="#waitlist"
+                style={{
+                  background: "var(--color-light)",
+                  color: "var(--color-secondary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "13.5px",
+                  fontWeight: 600,
+                  padding: "13px 26px",
+                  borderRadius: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              >
+                Request a test invite →
+              </Link>
+            </div>
           </SectionReveal>
         </div>
       </section>
@@ -217,232 +281,268 @@ export default function ModiriPage() {
       {/* ── 2. For Homeowners & Businesses ───────────────────────── */}
       <section
         id="homeowners"
-        className="py-20"
-        style={{ background: "var(--color-base)" }}
+        style={{
+          padding: "72px 32px",
+          background: "var(--color-base)",
+          borderTop: "1px solid var(--color-border)",
+        }}
       >
-        <div
-          className="mx-auto px-6"
-          style={{ maxWidth: "var(--width-content)" }}
-        >
-          {/* Section header */}
+        <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
           <SectionReveal delay={0}>
-            <h2
-              className="font-display font-bold leading-tight tracking-tight mb-4"
-              style={{
-                fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              You know exactly who&apos;s coming into your home.
+            <Kicker>For homeowners &amp; businesses</Kicker>
+          </SectionReveal>
+          <SectionReveal delay={1}>
+            <h2 style={H2_STYLE}>
+              You know exactly who&apos;s{" "}
+              <em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--color-accent)" }}>
+                coming into your home.
+              </em>
             </h2>
           </SectionReveal>
           <SectionReveal delay={1}>
-            <p
-              className="text-base leading-relaxed max-w-2xl mb-12"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              Whether you live alone or not, Modiri means someone is
-              accountable before they ever knock on your door. Your name on our
-              system. Their record on ours.
+            <p style={LEDE_STYLE}>
+              Whether you live alone or not, Modiri means someone is accountable
+              before they ever knock on your door. Your name on our system.
+              Their record on ours.
             </p>
           </SectionReveal>
 
-          {/* Feature cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-            {HOMEOWNER_FEATURES.map((feat, i) => (
-              <SectionReveal key={feat.title} delay={i + 2}>
-                <article
-                  className="feature-card flex flex-col gap-4 p-8 rounded-xl border transition-colors duration-200"
-                  style={{
-                    background: "var(--color-surface)",
-                    borderColor: "var(--color-border)",
-                  }}
-                >
-                  <FeatureIcon>{feat.icon}</FeatureIcon>
-                  <div>
-                    <h3
-                      className="font-display font-semibold text-base mb-1"
-                      style={{ color: "var(--color-text-primary)" }}
-                    >
-                      {feat.title}
-                    </h3>
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: "var(--color-text-secondary)" }}
-                    >
-                      {feat.body}
-                    </p>
-                  </div>
-                </article>
-              </SectionReveal>
-            ))}
-          </div>
-
-          {/* B2B callout */}
-          <SectionReveal delay={6}>
-            <div
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-8 rounded-xl border"
-              style={{
-                background: "var(--color-elevated)",
-                borderColor: "var(--color-border-hover)",
-              }}
-            >
-              <div className="flex flex-col gap-1 max-w-xl">
-                <p
-                  className="text-xs font-semibold uppercase tracking-widest mb-1"
-                  style={{ color: "var(--color-accent)" }}
-                >
-                  For insurance, construction &amp; banking teams
-                </p>
-                <h3
-                  className="font-display font-semibold text-lg leading-snug"
-                  style={{ color: "var(--color-text-primary)" }}
-                >
-                  Vetted emergency workforce, on demand.
-                </h3>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "var(--color-text-secondary)" }}
-                >
-                  Rapid-response repairs after claims, verified contractors for
-                  site work, reliable tradespeople for property portfolios.
-                  Modiri plugs directly into your operations.
-                </p>
-              </div>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-95 flex-shrink-0"
-                style={{
-                  background: "var(--color-accent)",
-                  color: "var(--color-ink)",
-                }}
-              >
-                Partner with us
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </SectionReveal>
+          <FeatureGrid features={HOMEOWNER_FEATURES} cellBg="var(--color-base)" />
         </div>
       </section>
 
       {/* ── 3. For Tradespeople ───────────────────────────────────── */}
       <section
         id="tradespeople"
-        className="py-20 border-t border-b"
         style={{
+          padding: "72px 32px",
           background: "var(--color-surface)",
-          borderColor: "var(--color-border)",
+          borderTop: "1px solid var(--color-border)",
         }}
       >
-        <div
-          className="mx-auto px-6"
-          style={{ maxWidth: "var(--width-content)" }}
-        >
+        <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
           <SectionReveal delay={0}>
-            <h2
-              className="font-display font-bold leading-tight tracking-tight mb-4"
-              style={{
-                fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
-                color: "var(--color-text-primary)",
-              }}
-            >
-              This is your platform.
+            <Kicker>For tradespeople</Kicker>
+          </SectionReveal>
+          <SectionReveal delay={1}>
+            <h2 style={H2_STYLE}>
+              This is{" "}
+              <em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--color-accent)" }}>
+                your platform.
+              </em>
             </h2>
           </SectionReveal>
           <SectionReveal delay={1}>
-            <p
-              className="text-base leading-relaxed max-w-2xl mb-12"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+            <p style={LEDE_STYLE}>
               South Africa has millions of skilled hands and nowhere near enough
               work. We built Modiri to change that — a platform where your
               ability is the only thing that matters.
             </p>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {TRADESPERSON_FEATURES.map((feat, i) => (
-              <SectionReveal key={feat.title} delay={i + 2}>
-                <article
-                  className="feature-card flex flex-col gap-4 p-8 rounded-xl border transition-colors duration-200"
-                  style={{
-                    background: "var(--color-elevated)",
-                    borderColor: "var(--color-border)",
-                  }}
-                >
-                  <FeatureIcon>{feat.icon}</FeatureIcon>
-                  <div>
-                    <h3
-                      className="font-display font-semibold text-base mb-1"
-                      style={{ color: "var(--color-text-primary)" }}
-                    >
-                      {feat.title}
-                    </h3>
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: "var(--color-text-secondary)" }}
-                    >
-                      {feat.body}
-                    </p>
-                  </div>
-                </article>
-              </SectionReveal>
-            ))}
-          </div>
+          <FeatureGrid
+            features={TRADESPERSON_FEATURES}
+            cellBg="var(--color-surface)"
+          />
         </div>
       </section>
 
-      {/* ── 4. Waitlist CTA ───────────────────────────────────────── */}
+      {/* ── 4. Tester invite — wraps the WaitlistForm ─────────────── */}
       <section
-        className="py-24 flex flex-col items-center px-6"
-        style={{ background: "var(--color-base)" }}
+        id="waitlist"
+        style={{
+          scrollMarginTop: "72px",
+          padding: "72px 32px",
+          background: "var(--color-base)",
+          borderTop: "1px solid var(--color-border)",
+        }}
       >
-        <div className="w-full" style={{ maxWidth: 480 }}>
-          <SectionReveal delay={0}>
-            <div className="text-center mb-8">
-              <h2
-                className="font-display font-bold leading-tight tracking-tight mb-3"
+        <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-start">
+            {/* Left — the invitation copy */}
+            <div>
+              <SectionReveal delay={0}>
+                <Kicker>Join the beta</Kicker>
+              </SectionReveal>
+              <SectionReveal delay={1}>
+                <h2 style={H2_STYLE}>
+                  Help us test Modiri{" "}
+                  <em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--color-accent)" }}>
+                    before everyone else.
+                  </em>
+                </h2>
+              </SectionReveal>
+              <SectionReveal delay={1}>
+                <p style={{ ...LEDE_STYLE, fontFamily: "var(--font-ed)", fontSize: "16.5px" }}>
+                  Leave your details and we&apos;ll send you a proper invite —
+                  straight to the right place for your phone. No manual
+                  installing, no fuss.
+                </p>
+              </SectionReveal>
+
+              <SectionReveal delay={2}>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    margin: "26px 0 0",
+                    padding: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <li style={{ display: "flex", gap: "12px", fontSize: "14.5px", color: "var(--color-text-secondary)", alignItems: "flex-start" }}>
+                    <Check />
+                    <span>
+                      <b style={{ color: "var(--color-ink)" }}>iPhone:</b> you&apos;ll
+                      get a TestFlight invite from Apple.
+                    </span>
+                  </li>
+                  <li style={{ display: "flex", gap: "12px", fontSize: "14.5px", color: "var(--color-text-secondary)", alignItems: "flex-start" }}>
+                    <Check />
+                    <span>
+                      <b style={{ color: "var(--color-ink)" }}>Android:</b> you&apos;ll
+                      be added to our Google Play test and get the install link
+                      by email.
+                    </span>
+                  </li>
+                  <li style={{ display: "flex", gap: "12px", fontSize: "14.5px", color: "var(--color-text-secondary)", alignItems: "flex-start" }}>
+                    <Check />
+                    <span>We review signups daily and send invites in batches.</span>
+                  </li>
+                </ul>
+              </SectionReveal>
+
+              {/* APK fallback — quiet, links out to modiri.co.za (RULING R8) */}
+              <SectionReveal delay={3}>
+                <p style={{ marginTop: "24px", fontSize: "13px", color: "var(--color-text-muted)" }}>
+                  Prefer to install the Android APK yourself? Grab it from{" "}
+                  <a
+                    href="https://modiri.co.za/download.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--color-accent)", textDecoration: "underline", textUnderlineOffset: "3px" }}
+                  >
+                    modiri.co.za
+                  </a>{" "}
+                  — but the invite above is the easy way.
+                </p>
+              </SectionReveal>
+            </div>
+
+            {/* Right — the form, in a clean white card */}
+            <SectionReveal delay={2}>
+              <div
                 style={{
-                  fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
-                  color: "var(--color-text-primary)",
+                  background: "#ffffff",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "12px",
+                  padding: "30px",
                 }}
               >
-                Join the Modiri waitlist
-              </h2>
-              <p
-                className="text-base leading-relaxed"
-                style={{ color: "var(--color-text-secondary)" }}
-              >
-                Be among the first when we launch in your area.
-              </p>
-            </div>
-          </SectionReveal>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 600,
+                    fontSize: "20px",
+                    color: "var(--color-ink)",
+                    marginBottom: "4px",
+                  }}
+                >
+                  Request your test invite
+                </h3>
+                <p style={{ fontSize: "13.5px", color: "var(--color-text-secondary)", marginBottom: "22px" }}>
+                  Takes 20 seconds. POPIA compliant.
+                </p>
+                <WaitlistForm />
+              </div>
+            </SectionReveal>
+          </div>
 
-          <SectionReveal delay={1}>
+          {/* Partner callout — navy outline on bone */}
+          <SectionReveal delay={3}>
             <div
-              className="rounded-xl border p-8"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-6"
               style={{
-                background: "var(--color-elevated)",
-                borderColor: "var(--color-border-hover)",
+                marginTop: "48px",
+                padding: "28px 30px",
+                border: "1px solid var(--color-border)",
+                borderRadius: "12px",
+                background: "var(--color-surface)",
               }}
             >
-              <WaitlistForm />
+              <div style={{ maxWidth: "560px" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-ed)",
+                    fontSize: "12px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--color-secondary)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  For insurance, construction &amp; property teams
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 600,
+                    fontSize: "20px",
+                    color: "var(--color-ink)",
+                  }}
+                >
+                  Need a vetted workforce on demand?
+                </h3>
+                <p style={{ fontSize: "14px", color: "var(--color-text-secondary)", marginTop: "4px" }}>
+                  Rapid-response repairs after claims, verified contractors for
+                  site work, reliable trades for property portfolios.
+                </p>
+              </div>
+              <Link
+                href="/#contact"
+                className="flex-shrink-0 whitespace-nowrap"
+                style={{
+                  background: "transparent",
+                  border: "1.5px solid var(--color-secondary)",
+                  color: "var(--color-secondary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "13.5px",
+                  fontWeight: 600,
+                  padding: "12px 24px",
+                  borderRadius: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              >
+                Partner with us →
+              </Link>
             </div>
           </SectionReveal>
         </div>
       </section>
     </main>
+  );
+}
+
+// Small green check used in the tester-invite bullets (green on bone is fine).
+function Check() {
+  return (
+    <span style={{ color: "var(--color-accent)", flexShrink: 0, marginTop: "2px" }}>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        style={{ display: "block" }}
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </span>
   );
 }

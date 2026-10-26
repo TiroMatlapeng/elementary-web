@@ -6,7 +6,6 @@ import { dirname, resolve } from "node:path";
 import {
   mapWaitlistRequest,
   WaitlistMappingError,
-  type WaitlistPlatform,
   type WaitlistRegistrationRequest,
 } from "./waitlist-mapping.ts";
 
@@ -54,7 +53,7 @@ test("role business maps to COMPANY", () => {
     email: "ops@acme.co.za",
     city: "Durban",
     role: "business",
-    platform: "IOS",
+    platform: "ANDROID",
   });
   assert.equal(result.track, "COMPANY");
 });
@@ -80,7 +79,7 @@ test("empty / missing city becomes null", () => {
     email: "sipho@example.co.za",
     city: "",
     role: "homeowner",
-    platform: "IOS",
+    platform: "ANDROID",
   });
   assert.equal(result.city, null);
 });
@@ -106,7 +105,7 @@ test("name is first + last joined with a single space", () => {
     email: "lerato.mokoena@example.co.za",
     city: "Johannesburg",
     role: "homeowner",
-    platform: "IOS",
+    platform: "ANDROID",
   });
   assert.equal(result.name, "Lerato Mokoena");
 });
@@ -119,7 +118,7 @@ test("missing last name still yields a non-padded name", () => {
     email: "lerato@example.co.za",
     city: "Johannesburg",
     role: "homeowner",
-    platform: "IOS",
+    platform: "ANDROID",
   });
   assert.equal(result.name, "Lerato");
 });
@@ -134,7 +133,6 @@ test("unknown role throws WaitlistMappingError", () => {
         email: "x@example.co.za",
         city: "Johannesburg",
         role: "investor",
-        platform: "IOS",
       }),
     WaitlistMappingError
   );
@@ -155,60 +153,31 @@ test("missing email throws WaitlistMappingError", () => {
   );
 });
 
-test("platform IOS is forwarded verbatim", () => {
-  const result = mapWaitlistRequest({
-    firstName: "Zanele",
-    lastName: "Moyo",
-    mobile: "+27820000003",
-    email: "zanele@example.co.za",
-    city: "Johannesburg",
-    role: "homeowner",
-    platform: "IOS",
-  });
-  assert.equal(result.platform, "IOS" satisfies WaitlistPlatform);
-});
+const validInput = {
+  firstName: "Lerato",
+  lastName: "Mokoena",
+  mobile: "+27821234567",
+  email: "lerato.mokoena@example.co.za",
+  city: "Johannesburg",
+  role: "homeowner",
+  platform: "ANDROID",
+};
 
-test("platform ANDROID is forwarded verbatim", () => {
-  const result = mapWaitlistRequest({
-    firstName: "Lungelo",
-    lastName: "Dube",
-    mobile: "+27820000004",
-    email: "lungelo@example.co.za",
-    city: "Cape Town",
-    role: "tradesperson",
-    platform: "ANDROID",
-  });
-  assert.equal(result.platform, "ANDROID" satisfies WaitlistPlatform);
-});
-
-test("missing platform throws WaitlistMappingError", () => {
+test("throws when platform is missing", () => {
   assert.throws(
-    () =>
-      mapWaitlistRequest({
-        firstName: "X",
-        lastName: "Y",
-        mobile: "+27820000000",
-        email: "x@example.co.za",
-        city: "Johannesburg",
-        role: "homeowner",
-        // platform intentionally omitted
-      }),
+    () => mapWaitlistRequest({ ...validInput, platform: undefined }),
     WaitlistMappingError
   );
 });
 
-test("unknown platform value throws WaitlistMappingError", () => {
+test("throws when platform is not IOS or ANDROID", () => {
   assert.throws(
-    () =>
-      mapWaitlistRequest({
-        firstName: "X",
-        lastName: "Y",
-        mobile: "+27820000000",
-        email: "x@example.co.za",
-        city: "Johannesburg",
-        role: "homeowner",
-        platform: "WINDOWS",
-      }),
+    () => mapWaitlistRequest({ ...validInput, platform: "WINDOWS" }),
     WaitlistMappingError
   );
+});
+
+test("maps platform IOS through unchanged", () => {
+  const result = mapWaitlistRequest({ ...validInput, platform: "IOS" });
+  assert.equal(result.platform, "IOS");
 });

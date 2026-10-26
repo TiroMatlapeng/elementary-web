@@ -15,7 +15,7 @@ export type ElementaryRole = "homeowner" | "tradesperson" | "business";
 /** The canonical Modiri waitlist track enum (only the three a website can send). */
 export type WaitlistTrack = "HOMEOWNER" | "ARTISAN" | "COMPANY";
 
-/** The Modiri platform enum — which mobile OS the registrant is on. */
+/** The device platforms the Modiri backend accepts. */
 export type WaitlistPlatform = "IOS" | "ANDROID";
 
 /** Raw, untrusted body shape posted by the form. All fields optional/unknown. */
@@ -53,7 +53,7 @@ const ROLE_TO_TRACK: Readonly<Record<ElementaryRole, WaitlistTrack>> = {
   business: "COMPANY",
 };
 
-const VALID_PLATFORMS: ReadonlySet<WaitlistPlatform> = new Set<WaitlistPlatform>(["IOS", "ANDROID"]);
+const PLATFORMS: readonly WaitlistPlatform[] = ["IOS", "ANDROID"];
 
 const SENTINEL_OTHER_CITY = "Other";
 
@@ -74,7 +74,7 @@ export function mapWaitlistRequest(
   const rawCity = asTrimmedString(body.city);
   const rawMobile = asTrimmedString(body.mobile);
   const role = asTrimmedString(body.role);
-  const rawPlatform = asTrimmedString(body.platform).toUpperCase();
+  const platform = asTrimmedString(body.platform);
 
   const name = [firstName, lastName].filter(Boolean).join(" ");
   if (!name) {
@@ -87,21 +87,20 @@ export function mapWaitlistRequest(
     throw new WaitlistMappingError("Role is required");
   }
 
+  if (!platform) {
+    throw new WaitlistMappingError("Device platform is required");
+  }
+  if (!PLATFORMS.includes(platform as WaitlistPlatform)) {
+    throw new WaitlistMappingError(`Unknown platform: ${platform}`);
+  }
+
   const track = ROLE_TO_TRACK[role as ElementaryRole];
   if (!track) {
     throw new WaitlistMappingError(`Unknown role: ${role}`);
   }
 
-  if (!rawPlatform) {
-    throw new WaitlistMappingError("Platform is required");
-  }
-  if (!VALID_PLATFORMS.has(rawPlatform as WaitlistPlatform)) {
-    throw new WaitlistMappingError(`Unknown platform: ${rawPlatform}`);
-  }
-  const platform = rawPlatform as WaitlistPlatform;
-
   const mobile = rawMobile || null;
   const city = !rawCity || rawCity === SENTINEL_OTHER_CITY ? null : rawCity;
 
-  return { name, email, mobile, city, track, platform };
+  return { name, email, mobile, city, track, platform: platform as WaitlistPlatform };
 }

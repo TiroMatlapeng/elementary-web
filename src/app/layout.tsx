@@ -1,15 +1,14 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
-import { Barlow_Condensed, DM_Sans, DM_Mono } from "next/font/google";
+import { Fraunces, DM_Sans, Spectral } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 
-const barlowCondensed = Barlow_Condensed({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
   style: ["normal", "italic"],
-  variable: "--font-display",
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -17,14 +16,15 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   style: ["normal", "italic"],
-  variable: "--font-body",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
-const dmMono = DM_Mono({
+const spectral = Spectral({
   subsets: ["latin"],
   weight: ["400", "500"],
-  variable: "--font-mono",
+  style: ["normal", "italic"],
+  variable: "--font-spectral",
   display: "swap",
 });
 
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${barlowCondensed.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={`${fraunces.variable} ${dmSans.variable} ${spectral.variable}`}
     >
       <body style={{ fontFamily: "var(--font-body)" }}>
         <Nav />
