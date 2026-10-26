@@ -17,7 +17,7 @@ const BELIEFS = [
 
 export function ManifestoSection() {
   return (
-    <section style={{ background: "var(--color-elevated)", padding: "72px 32px", borderTop: "1px solid var(--color-border)" }}>
+    <section id="about" style={{ background: "var(--color-elevated)", padding: "72px 32px", borderTop: "1px solid var(--color-border)" }}>
       <div style={{ maxWidth: "var(--width-content)", margin: "0 auto" }}>
         <SectionReveal delay={0}>
           <div style={{ fontFamily: "var(--font-ed)", fontSize: "12.5px", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-accent)", marginBottom: "32px" }}>
