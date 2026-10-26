@@ -3,11 +3,11 @@
 import Link from "next/link";
 
 const SERVICE_LINKS = [
-  { label: "Software Engineering", href: "#services" },
-  { label: "App Modernisation", href: "#services" },
-  { label: "Cloud Migration", href: "#services" },
-  { label: "Data Warehousing", href: "#services" },
-  { label: "BI & Analytics", href: "#services" },
+  { label: "Software Engineering", href: "/#services" },
+  { label: "App Modernisation", href: "/#services" },
+  { label: "Cloud Migration", href: "/#services" },
+  { label: "Data Warehousing", href: "/#services" },
+  { label: "BI & Analytics", href: "/#services" },
 ] as const;
 
 const PRODUCT_LINKS = [
@@ -18,9 +18,9 @@ const PRODUCT_LINKS = [
 ] as const;
 
 const COMPANY_LINKS = [
-  { label: "About Elementary", href: "#about" },
-  { label: "Our approach", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "About Elementary", href: "/#about" },
+  { label: "Our approach", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 function FooterColumn({ heading, links }: { heading: string; links: readonly { label: string; href: string }[] }) {
